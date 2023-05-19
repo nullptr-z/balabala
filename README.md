@@ -1,4 +1,4 @@
-# 我的项目
+# Balabala
 
 这是一个使用 Rust（编译为 WASM）和 Node.js 的网络爬虫项目。
 
@@ -35,13 +35,23 @@ parse/ 目录包含 Node.js 代码和资源。它由 package.json 文件管理�
 
 你需要先安装 Rust 和 wasm-pack。安装指南可在 [Rust 官方网站](https://www.rust-lang.org/tools/install) 和 [wasm-pack 官方网站](https://rustwasm.github.io/wasm-pack/installer/) 找到。
 
-> 安装 wasm-pack:
- `curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh`
+```sh
+> 安装 Rust:
+curl https://sh.rustup.rs -sSf | sh
+# or
+apt install rustc
 
+> 安装 wasm-pack:
+curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
+
+> 安装 cargo-watch:
+cargo install cargo-watch
+```
 
 ### Node.js 和 npm
 
 你还需要安装 Node.js 和 npm。安装指南可在 [Node.js 官方网站](https://nodejs.org/) 找到。
+
 
 ### 项目依赖
 
@@ -54,9 +64,17 @@ cargo build
 # 在 Node.js 中安装依赖
 cd node
 npm install
+```
 
-# 运行
+
+### 自动编译
+代码变更时自动编译 Rust 项目，你可以安装 cargo-watch：
+```sh
+
+# 使用 cargo-watch 运行 Rust 项目：
+cargo watch -s "wasm-pack build --target nodejs --out-dir wasm/pkg"
+```
+
+### 手动编译
 你需要编译 Rust 代码为 WASM：
 ./wasm/wasm_pack_script.sh
-
-

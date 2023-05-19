@@ -1,3 +1,8 @@
-const wasm = require('../wasm/pkg/balabala.js');
+import wasm from 'balabala'
 
-wasm.greet();
+async function main() {
+  return await wasm.greet();
+}
+
+const result = await main();
+console.log("【 result 】==>", result);

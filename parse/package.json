@@ -2,12 +2,13 @@
   "name": "parse_balabala",
   "version": "0.0.1",
   "main": "server.js",
+  "type": "module",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "link": "yarn link balabala"
   },
   "dependencies": {
     "axios": "^1.4.0",
-    "cheerio": "^1.0.0-rc.12",
-    "balabala": "file:../wasm/pkg"
+    "cheerio": "^1.0.0-rc.12"
   }
 }
