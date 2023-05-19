@@ -1,2 +1,2 @@
 #!/bin/bash
-wasm-pack build --target nodejs --out-dir ./pkg
+wasm-pack build --target nodejs --out-dir wasm/pkg
