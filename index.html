@@ -1,0 +1,416 @@
+<div id="rustdoc-vars" data-root-path="../" data-static-root-path="/-/rustdoc.static/" data-current-crate="v8" data-themes="" data-resource-suffix="-20230511-1.71.0-nightly-2a8221dbd" data-rustdoc-version="1.71.0-nightly (2a8221dbd 2023-05-11)" data-search-js="search-4926e5fc22a5646a.js" data-settings-js="settings-de11bff964e9d4e5.js" data-settings-css="settings-6f6ffb5395b17c6e.css" data-theme-light-css="light-0f8c037637f9eb3e.css" data-theme-dark-css="dark-1097f8e92a01e3cf.css" data-theme-ayu-css="ayu-614652228113ac93.css"></div><script src="/-/rustdoc.static/storage-62ce34ea385b278a.js"></script><script defer="" src="../crates-20230511-1.71.0-nightly-2a8221dbd.js"></script><script defer="" src="/-/rustdoc.static/main-f0540c1d82cde29b.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="/-/rustdoc.static/light-0f8c037637f9eb3e.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="/-/rustdoc.static/dark-1097f8e92a01e3cf.css"><link rel="stylesheet" href="/-/rustdoc.static/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="/-/rustdoc.static/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="/-/rustdoc.static/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="/-/rustdoc.static/favicon-2c020d218678b618.svg"><link rel="stylesheet" href="/-/static/rustdoc-2021-12-05.css?0-6-0-a5028966-2023-05-14" media="all">
+
+        <link rel="search" href="/-/static/opensearch.xml" type="application/opensearchdescription+xml" title="Docs.rs">
+
+        <script type="text/javascript">function applyTheme(theme) {
+  document.documentElement.dataset.theme = theme;
+}
+
+window.addEventListener('storage', function (ev) {
+  if (ev.key === 'rustdoc-theme') {
+    applyTheme(ev.newValue);
+  }
+});
+
+// see ./storage-change-detection.html for details
+window.addEventListener('message', function (ev) {
+  if (ev.data && ev.data.storage && ev.data.storage.key === 'rustdoc-theme') {
+    applyTheme(ev.data.storage.value);
+  }
+});
+
+applyTheme(window.localStorage.getItem('rustdoc-theme'));
+</script>
+
+<div class="nav-container">
+    <div class="container">
+        <div class="pure-menu pure-menu-horizontal" role="navigation" aria-label="Main navigation">
+            <form action="/releases/search" method="GET" class="landing-search-form-nav  ">
+
+                
+                <a href="/" class="pure-menu-heading pure-menu-link docsrs-logo" aria-label="Docs.rs">
+                    <span title="Docs.rs"><span class="fa-svg " aria-hidden="true"></span></span>
+                    <span class="title">Docs.rs</span>
+                </a>
+<ul class="pure-menu-list"><li class="pure-menu-item pure-menu-has-children">
+            <a href="#" class="pure-menu-link crate-name" title="Rust bindings to V8">
+                <span class="fa-svg " aria-hidden="true"></span>
+                <span class="title">v8-0.71.2</span>
+            </a>
+
+            
+            <div class="pure-menu-children package-details-menu">
+                
+                <ul class="pure-menu-list menu-item-divided">
+                    <li class="pure-menu-heading" id="crate-title">
+                        v8 0.71.2
+                        <span id="clipboard" class="fa-svg fa-svg-fw" title="Copy crate name and version information"></span>
+                    </li><li class="pure-menu-item">
+                        <a href="/crate/v8/0.71.2" class="pure-menu-link description" title="See v8 in docs.rs">
+                            <span class="fa-svg fa-svg-fw " aria-hidden="true"></span> Docs.rs crate page
+                        </a>
+                    </li>
+
+                    <li class="pure-menu-item">
+                        <a href="/crate/v8/0.71.2" class="pure-menu-link">
+                            <span class="fa-svg fa-svg-fw " aria-hidden="true"></span> MIT
+                        </a>
+                    </li>
+                </ul>
+
+                <div class="pure-g menu-item-divided">
+                    <div class="pure-u-1-2 right-border">
+                        <ul class="pure-menu-list">
+                            <li class="pure-menu-heading">Links</li>
+
+                            <li class="pure-menu-item">
+                                    <a href="https://github.com/denoland/rusty_v8" class="pure-menu-link">
+                                        <span class="fa-svg fa-svg-fw " aria-hidden="true"></span> Repository
+                                    </a>
+                                </li><li class="pure-menu-item">
+                                <a href="https://crates.io/crates/v8" class="pure-menu-link" title="See v8 in crates.io">
+                                    <span class="fa-svg fa-svg-fw " aria-hidden="true"></span> Crates.io
+                                </a>
+                            </li>
+
+                            
+                            <li class="pure-menu-item">
+                                <a href="/crate/v8/0.71.2/source/" title="Browse source of v8-0.71.2" class="pure-menu-link">
+                                    <span class="fa-svg fa-svg-fw " aria-hidden="true"></span> Source
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    
+                    <div class="pure-u-1-2">
+                        <ul class="pure-menu-list">
+                            <li class="pure-menu-heading">Owners</li><li class="pure-menu-item">
+                                    <a href="https://crates.io/users/ry" class="pure-menu-link">
+                                        <span class="fa-svg fa-svg-fw " aria-hidden="true"></span> ry
+                                    </a>
+                                </li><li class="pure-menu-item">
+                                    <a href="https://crates.io/users/piscisaureus" class="pure-menu-link">
+                                        <span class="fa-svg fa-svg-fw " aria-hidden="true"></span> piscisaureus
+                                    </a>
+                                </li><li class="pure-menu-item">
+                                    <a href="https://crates.io/users/bartlomieju" class="pure-menu-link">
+                                        <span class="fa-svg fa-svg-fw " aria-hidden="true"></span> bartlomieju
+                                    </a>
+                                </li><li class="pure-menu-item">
+                                    <a href="https://crates.io/users/lucacasonato" class="pure-menu-link">
+                                        <span class="fa-svg fa-svg-fw " aria-hidden="true"></span> lucacasonato
+                                    </a>
+                                </li><li class="pure-menu-item">
+                                    <a href="https://crates.io/users/github:denoland:engineering" class="pure-menu-link">
+                                        <span class="fa-svg fa-svg-fw " aria-hidden="true"></span> github:denoland:engineering
+                                    </a>
+                                </li></ul>
+                    </div>
+                </div>
+
+                <div class="pure-g menu-item-divided">
+                    <div class="pure-u-1-2 right-border">
+                        <ul class="pure-menu-list">
+                            <li class="pure-menu-heading">Dependencies</li>
+
+                            
+                            <li class="pure-menu-item">
+                                <div class="pure-menu pure-menu-scrollable sub-menu" tabindex="-1">
+                                    <ul class="pure-menu-list"><li class="pure-menu-item">
+                                                <a href="/bitflags/^1.3.2" class="pure-menu-link">
+                                                    bitflags ^1.3.2
+                                                    <i class="dependencies normal">normal</i>
+                                                </a>
+                                            </li><li class="pure-menu-item">
+                                                <a href="/once_cell/^1.17.1" class="pure-menu-link">
+                                                    once_cell ^1.17.1
+                                                    <i class="dependencies normal">normal</i>
+                                                </a>
+                                            </li><li class="pure-menu-item">
+                                                <a href="/align-data/^0.1.0" class="pure-menu-link">
+                                                    align-data ^0.1.0
+                                                    <i class="dependencies dev">dev</i>
+                                                </a>
+                                            </li><li class="pure-menu-item">
+                                                <a href="/fslock/^0.1.8" class="pure-menu-link">
+                                                    fslock ^0.1.8
+                                                    <i class="dependencies dev">dev</i>
+                                                </a>
+                                            </li><li class="pure-menu-item">
+                                                <a href="/trybuild/^1.0.61" class="pure-menu-link">
+                                                    trybuild ^1.0.61
+                                                    <i class="dependencies dev">dev</i>
+                                                </a>
+                                            </li><li class="pure-menu-item">
+                                                <a href="/which/^4.2.5" class="pure-menu-link">
+                                                    which ^4.2.5
+                                                    <i class="dependencies dev">dev</i>
+                                                </a>
+                                            </li><li class="pure-menu-item">
+                                                <a href="/fslock/^0.1.8" class="pure-menu-link">
+                                                    fslock ^0.1.8
+                                                    <i class="dependencies build">build</i>
+                                                </a>
+                                            </li><li class="pure-menu-item">
+                                                <a href="/which/^4.2.5" class="pure-menu-link">
+                                                    which ^4.2.5
+                                                    <i class="dependencies build">build</i>
+                                                </a>
+                                            </li></ul>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="pure-u-1-2">
+                        <ul class="pure-menu-list">
+                            <li class="pure-menu-heading">Versions</li>
+
+                            <li class="pure-menu-item">
+                                <div class="pure-menu pure-menu-scrollable sub-menu" id="releases-list" tabindex="-1">
+                                    <span class="rotate"><span class="fa-svg " aria-hidden="true"></span></span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                    <div class="pure-g">
+                        <div class="pure-u-1">
+                            <ul class="pure-menu-list">
+                                <li>
+                                    <a href="/crate/v8/0.71.2" class="pure-menu-link">
+                                        <b>18.97%</b>
+                                        of the crate is documented
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div></div>
+        </li><li class="pure-menu-item pure-menu-has-children">
+        <a href="#" class="pure-menu-link" aria-label="Platform">
+            <span class="fa-svg " aria-hidden="true"></span>
+            <span class="title">Platform</span>
+        </a>
+
+        
+        <ul class="pure-menu-children"><li class="pure-menu-item">
+                    <a href="/crate/v8/0.71.2/target-redirect/x86_64-unknown-linux-gnu/v8/index.html" class="pure-menu-link" data-fragment="retain" rel="nofollow">x86_64-unknown-linux-gnu</a>
+                </li><li class="pure-menu-item">
+                    <a href="/crate/v8/0.71.2/target-redirect/i686-unknown-linux-gnu/v8/index.html" class="pure-menu-link" data-fragment="retain" rel="nofollow">i686-unknown-linux-gnu</a>
+                </li><li class="pure-menu-item">
+                    <a href="/crate/v8/0.71.2/target-redirect/x86_64-pc-windows-msvc/v8/index.html" class="pure-menu-link" data-fragment="retain" rel="nofollow">x86_64-pc-windows-msvc</a>
+                </li><li class="pure-menu-item">
+                    <a href="/crate/v8/0.71.2/target-redirect/x86_64-apple-darwin/v8/index.html" class="pure-menu-link" data-fragment="retain" rel="nofollow">x86_64-apple-darwin</a>
+                </li></ul>
+    </li><li class="pure-menu-item">
+        <a href="/crate/v8/0.71.2/features" title="Browse available feature flags of v8-0.71.2" class="pure-menu-link">
+            <span class="fa-svg " aria-hidden="true"></span>
+            <span class="title">Feature flags</span>
+        </a>
+    </li>
+    
+</ul><div class="spacer"></div>
+                
+                <ul class="pure-menu-list">
+                    <li class="pure-menu-item pure-menu-has-children">
+                        <a href="#" class="pure-menu-link" aria-label="Rust">Rust</a>
+                        <ul class="pure-menu-children">
+                            
+    <li class="pure-menu-item">
+        <a class="pure-menu-link " href="https://docs.rs/about" target="_blank">
+            About docs.rs
+        </a>
+    </li>
+
+                            
+    <li class="pure-menu-item">
+        <a class="pure-menu-link " href="https://foundation.rust-lang.org/policies/privacy-policy/#docs.rs" target="_blank">
+            Privacy policy
+        </a>
+    </li>
+
+                            
+    <li class="pure-menu-item">
+        <a class="pure-menu-link " href="https://www.rust-lang.org/" target="_blank">
+            Rust website
+        </a>
+    </li>
+
+                            
+    <li class="pure-menu-item">
+        <a class="pure-menu-link " href="https://doc.rust-lang.org/book/" target="_blank">
+            The Book
+        </a>
+    </li>
+
+
+                            
+    <li class="pure-menu-item">
+        <a class="pure-menu-link " href="https://doc.rust-lang.org/std/" target="_blank">
+            Standard Library API Reference
+        </a>
+    </li>
+
+
+                            
+    <li class="pure-menu-item">
+        <a class="pure-menu-link " href="https://doc.rust-lang.org/rust-by-example/" target="_blank">
+            Rust by Example
+        </a>
+    </li>
+
+
+                            
+    <li class="pure-menu-item">
+        <a class="pure-menu-link " href="https://doc.rust-lang.org/cargo/guide/" target="_blank">
+            The Cargo Guide
+        </a>
+    </li>
+
+
+                            
+    <li class="pure-menu-item">
+        <a class="pure-menu-link " href="https://doc.rust-lang.org/nightly/clippy" target="_blank">
+            Clippy Documentation
+        </a>
+    </li>
+
+                        </ul>
+                    </li>
+                </ul>
+                
+                <div id="search-input-nav">
+                    <label for="nav-search">
+                        <span class="fa-svg " aria-hidden="true"></span>
+                    </label>
+
+                    
+                    
+                    <input id="nav-search" name="query" type="text" aria-label="Find crate by search query" tabindex="-1" placeholder="Find crate">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="rustdoc mod crate container-rustdoc" id="rustdoc_body_wrapper" tabindex="-1"><script async="" src="/-/static/menu.js?0-6-0-a5028966-2023-05-14"></script>
+<script async="" src="/-/static/index.js?0-6-0-a5028966-2023-05-14"></script>
+
+<iframe loading="lazy" src="/-/storage-change-detection.html" width="0" height="0" style="display: none"></iframe>
+<!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">☰</button><a class="logo-container" href="../v8/index.html"></a><h2></h2></nav><nav class="sidebar"><a class="logo-container" href="../v8/index.html"></a><h2 class="location"><a href="#">Crate v8</a></h2><div class="sidebar-elems"><ul class="block"><li class="version">Version 0.71.2</li><li><a id="all-types" href="all.html">All Items</a></li></ul><section><ul class="block"><li><a href="#reexports">Re-exports</a></li><li><a href="#modules">Modules</a></li><li><a href="#structs">Structs</a></li><li><a href="#enums">Enums</a></li><li><a href="#constants">Constants</a></li><li><a href="#traits">Traits</a></li><li><a href="#functions">Functions</a></li><li><a href="#types">Type Definitions</a></li><li><a href="#unions">Unions</a></li></ul></section></div></nav><main><div class="width-limiter"><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../settings.html" title="settings"></a></div></form></nav><section id="main-content" class="content"><div class="main-heading"><h1>Crate <a class="mod" href="#">v8</a><button id="copy-path" title="Copy item path to clipboard"></button></h1><span class="out-of-band"><a class="srclink" href="../src/v8/lib.rs.html#3-157">source</a> · <button id="toggle-all-docs" title="collapse all docs">[<span>−</span>]</button></span></div><details class="toggle top-doc" open=""><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><h2 id="example"><a href="#example">Example</a></h2>
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">let </span>platform = v8::new_default_platform(<span class="number">0</span>, <span class="bool-val">false</span>).make_shared();
+v8::V8::initialize_platform(platform);
+v8::V8::initialize();
+
+<span class="kw">let </span>isolate = <span class="kw-2">&amp;mut </span>v8::Isolate::new(Default::default());
+
+<span class="kw">let </span>scope = <span class="kw-2">&amp;mut </span>v8::HandleScope::new(isolate);
+<span class="kw">let </span>context = v8::Context::new(scope);
+<span class="kw">let </span>scope = <span class="kw-2">&amp;mut </span>v8::ContextScope::new(scope, context);
+
+<span class="kw">let </span>code = v8::String::new(scope, <span class="string">"'Hello' + ' World!'"</span>).unwrap();
+<span class="macro">println!</span>(<span class="string">"javascript code: {}"</span>, code.to_rust_string_lossy(scope));
+
+<span class="kw">let </span>script = v8::Script::compile(scope, code, <span class="prelude-val">None</span>).unwrap();
+<span class="kw">let </span>result = script.run(scope).unwrap();
+<span class="kw">let </span>result = result.to_string(scope).unwrap();
+<span class="macro">println!</span>(<span class="string">"result: {}"</span>, result.to_rust_string_lossy(scope));</code></pre></div>
+</div></details><h2 id="reexports" class="small-section-header"><a href="#reexports">Re-exports</a></h2><ul class="item-table"><li><div class="item-name" id="reexport.CachedData"><code>pub use script_compiler::<a class="struct" href="script_compiler/struct.CachedData.html" title="struct v8::script_compiler::CachedData">CachedData</a>;</code></div></li></ul><h2 id="modules" class="small-section-header"><a href="#modules">Modules</a></h2><ul class="item-table"><li><div class="item-name"><a class="mod" href="V8/index.html" title="mod v8::V8">V8</a></div></li><li><div class="item-name"><a class="mod" href="fast_api/index.html" title="mod v8::fast_api">fast_api</a></div></li><li><div class="item-name"><a class="mod" href="icu/index.html" title="mod v8::icu">icu</a></div></li><li><div class="item-name"><a class="mod" href="inspector/index.html" title="mod v8::inspector">inspector</a></div><div class="desc docblock-short">Bindings to the V8 Inspector API. Documentation for the V8 inspector API is
+very sparse, so here are a few references for the next sorry soul who has to
+dig into it.</div></li><li><div class="item-name"><a class="mod" href="json/index.html" title="mod v8::json">json</a></div><div class="desc docblock-short">A JSON Parser and Stringifier.</div></li><li><div class="item-name"><a class="mod" href="script_compiler/index.html" title="mod v8::script_compiler">script_compiler</a></div></li></ul><h2 id="structs" class="small-section-header"><a href="#structs">Structs</a></h2><ul class="item-table"><li><div class="item-name"><a class="struct" href="struct.AccessorConfiguration.html" title="struct v8::AccessorConfiguration">AccessorConfiguration</a></div></li><li><div class="item-name"><a class="struct" href="struct.AccessorSignature.html" title="struct v8::AccessorSignature">AccessorSignature</a></div><div class="desc docblock-short">An AccessorSignature specifies which receivers are valid parameters
+to an accessor callback.</div></li><li><div class="item-name"><a class="struct" href="struct.Allocator.html" title="struct v8::Allocator">Allocator</a></div><div class="desc docblock-short">A thread-safe allocator that V8 uses to allocate |ArrayBuffer|’s memory.
+The allocator is a global V8 setting. It has to be set via
+Isolate::CreateParams.</div></li><li><div class="item-name"><a class="struct" href="struct.Array.html" title="struct v8::Array">Array</a></div><div class="desc docblock-short">An instance of the built-in array constructor (ECMA-262, 15.4.2).</div></li><li><div class="item-name"><a class="struct" href="struct.ArrayBuffer.html" title="struct v8::ArrayBuffer">ArrayBuffer</a></div><div class="desc docblock-short">An instance of the built-in ArrayBuffer constructor (ES6 draft 15.13.5).</div></li><li><div class="item-name"><a class="struct" href="struct.ArrayBufferView.html" title="struct v8::ArrayBufferView">ArrayBufferView</a></div><div class="desc docblock-short">A base class for an instance of one of “views” over ArrayBuffer,
+including TypedArrays and DataView (ES6 draft 15.13).</div></li><li><div class="item-name"><a class="struct" href="struct.BackingStore.html" title="struct v8::BackingStore">BackingStore</a></div><div class="desc docblock-short">A wrapper around the backing store (i.e. the raw memory) of an array buffer.
+See a document linked in http://crbug.com/v8/9908 for more information.</div></li><li><div class="item-name"><a class="struct" href="struct.BigInt.html" title="struct v8::BigInt">BigInt</a></div><div class="desc docblock-short">A JavaScript BigInt value (https://tc39.github.io/proposal-bigint)</div></li><li><div class="item-name"><a class="struct" href="struct.BigInt64Array.html" title="struct v8::BigInt64Array">BigInt64Array</a></div><div class="desc docblock-short">An instance of BigInt64Array constructor.</div></li><li><div class="item-name"><a class="struct" href="struct.BigIntObject.html" title="struct v8::BigIntObject">BigIntObject</a></div><div class="desc docblock-short">A BigInt object (https://tc39.github.io/proposal-bigint)</div></li><li><div class="item-name"><a class="struct" href="struct.BigUint64Array.html" title="struct v8::BigUint64Array">BigUint64Array</a></div><div class="desc docblock-short">An instance of BigUint64Array constructor.</div></li><li><div class="item-name"><a class="struct" href="struct.Boolean.html" title="struct v8::Boolean">Boolean</a></div><div class="desc docblock-short">A primitive boolean value (ECMA-262, 4.3.14). Either the true
+or false value.</div></li><li><div class="item-name"><a class="struct" href="struct.BooleanObject.html" title="struct v8::BooleanObject">BooleanObject</a></div><div class="desc docblock-short">A Boolean object (ECMA-262, 4.3.15).</div></li><li><div class="item-name"><a class="struct" href="struct.CallbackScope.html" title="struct v8::CallbackScope">CallbackScope</a></div><div class="desc docblock-short">A <code>CallbackScope</code> can be used to bootstrap a <code>HandleScope</code> and
+<code>ContextScope</code> inside a callback function that gets called by V8.
+Bootstrapping a scope inside a callback is the only valid use case of this
+type; using it in other places leads to undefined behavior, which is also
+the reason <code>CallbackScope::new()</code> is marked as being an unsafe function.</div></li><li><div class="item-name"><a class="struct" href="struct.CompiledWasmModule.html" title="struct v8::CompiledWasmModule">CompiledWasmModule</a></div><div class="desc docblock-short">Wrapper around a compiled WebAssembly module, which is potentially shared by
+different WasmModuleObjects.</div></li><li><div class="item-name"><a class="struct" href="struct.Context.html" title="struct v8::Context">Context</a></div><div class="desc docblock-short">A sandboxed execution context with its own set of built-in objects
+and functions.</div></li><li><div class="item-name"><a class="struct" href="struct.ContextScope.html" title="struct v8::ContextScope">ContextScope</a></div><div class="desc docblock-short">Stack-allocated class which sets the execution context for all operations
+executed within a local scope. After entering a context, all code compiled
+and run is compiled and run in this context.</div></li><li><div class="item-name"><a class="struct" href="struct.CreateParams.html" title="struct v8::CreateParams">CreateParams</a></div><div class="desc docblock-short">Initial configuration parameters for a new Isolate.</div></li><li><div class="item-name"><a class="struct" href="struct.Data.html" title="struct v8::Data">Data</a></div><div class="desc docblock-short">The superclass of objects that can reside on V8’s heap.</div></li><li><div class="item-name"><a class="struct" href="struct.DataView.html" title="struct v8::DataView">DataView</a></div><div class="desc docblock-short">An instance of DataView constructor (ES6 draft 15.13.7).</div></li><li><div class="item-name"><a class="struct" href="struct.Date.html" title="struct v8::Date">Date</a></div><div class="desc docblock-short">An instance of the built-in Date constructor (ECMA-262, 15.9).</div></li><li><div class="item-name"><a class="struct" href="struct.EscapableHandleScope.html" title="struct v8::EscapableHandleScope">EscapableHandleScope</a></div><div class="desc docblock-short">A HandleScope which first allocates a handle in the current scope
+which will be later filled with the escape value.</div></li><li><div class="item-name"><a class="struct" href="struct.Exception.html" title="struct v8::Exception">Exception</a></div><div class="desc docblock-short">Create new error objects by calling the corresponding error object
+constructor with the message.</div></li><li><div class="item-name"><a class="struct" href="struct.External.html" title="struct v8::External">External</a></div><div class="desc docblock-short">A JavaScript value that wraps a C++ void*. This type of value is mainly used
+to associate C++ data structures with JavaScript objects.</div></li><li><div class="item-name"><a class="struct" href="struct.ExternalReferences.html" title="struct v8::ExternalReferences">ExternalReferences</a></div></li><li><div class="item-name"><a class="struct" href="struct.FixedArray.html" title="struct v8::FixedArray">FixedArray</a></div><div class="desc docblock-short">A fixed-sized array with elements of type Data.</div></li><li><div class="item-name"><a class="struct" href="struct.Float32Array.html" title="struct v8::Float32Array">Float32Array</a></div><div class="desc docblock-short">An instance of Float32Array constructor (ES6 draft 15.13.6).</div></li><li><div class="item-name"><a class="struct" href="struct.Float64Array.html" title="struct v8::Float64Array">Float64Array</a></div><div class="desc docblock-short">An instance of Float64Array constructor (ES6 draft 15.13.6).</div></li><li><div class="item-name"><a class="struct" href="struct.Function.html" title="struct v8::Function">Function</a></div><div class="desc docblock-short">A JavaScript function object (ECMA-262, 15.3).</div></li><li><div class="item-name"><a class="struct" href="struct.FunctionBuilder.html" title="struct v8::FunctionBuilder">FunctionBuilder</a></div><div class="desc docblock-short">A builder to construct the properties of a Function or FunctionTemplate.</div></li><li><div class="item-name"><a class="struct" href="struct.FunctionCallbackArguments.html" title="struct v8::FunctionCallbackArguments">FunctionCallbackArguments</a></div></li><li><div class="item-name"><a class="struct" href="struct.FunctionCallbackInfo.html" title="struct v8::FunctionCallbackInfo">FunctionCallbackInfo</a></div><div class="desc docblock-short">The argument information given to function call callbacks.  This
+class provides access to information about the context of the call,
+including the receiver, the number and values of arguments, and
+the holder of the function.</div></li><li><div class="item-name"><a class="struct" href="struct.FunctionTemplate.html" title="struct v8::FunctionTemplate">FunctionTemplate</a></div><div class="desc docblock-short">A FunctionTemplate is used to create functions at runtime. There
+can only be one function created from a FunctionTemplate in a
+context. The lifetime of the created function is equal to the
+lifetime of the context. So in case the embedder needs to create
+temporary functions that can be collected using Scripts is
+preferred.</div></li><li><div class="item-name"><a class="struct" href="struct.GCCallbackFlags.html" title="struct v8::GCCallbackFlags">GCCallbackFlags</a></div><div class="desc docblock-short">GCCallbackFlags is used to notify additional information about the GC
+callback.</div></li><li><div class="item-name"><a class="struct" href="struct.GCType.html" title="struct v8::GCType">GCType</a></div><div class="desc docblock-short">Applications can register callback functions which will be called before and
+after certain garbage collection operations.  Allocations are not allowed in
+the callback functions, you therefore cannot manipulate objects (set or
+delete properties for example) since it is possible such operations will
+result in the allocation of objects.</div></li><li><div class="item-name"><a class="struct" href="struct.GetPropertyNamesArgs.html" title="struct v8::GetPropertyNamesArgs">GetPropertyNamesArgs</a></div></li><li><div class="item-name"><a class="struct" href="struct.GetPropertyNamesArgsBuilder.html" title="struct v8::GetPropertyNamesArgsBuilder">GetPropertyNamesArgsBuilder</a></div></li><li><div class="item-name"><a class="struct" href="struct.Global.html" title="struct v8::Global">Global</a></div><div class="desc docblock-short">An object reference that is independent of any handle scope. Where
+a Local handle only lives as long as the HandleScope in which it was
+allocated, a global handle remains valid until it is dropped.</div></li><li><div class="item-name"><a class="struct" href="struct.HandleScope.html" title="struct v8::HandleScope">HandleScope</a></div><div class="desc docblock-short">A stack-allocated class that governs a number of local handles.
+After a handle scope has been created, all local handles will be
+allocated within that handle scope until either the handle scope is
+deleted or another handle scope is created.  If there is already a
+handle scope and a new one is created, all allocations will take
+place in the new handle scope until it is deleted.  After that,
+new handles will again be allocated in the original handle scope.</div></li><li><div class="item-name"><a class="struct" href="struct.HeapStatistics.html" title="struct v8::HeapStatistics">HeapStatistics</a></div><div class="desc docblock-short">Collection of V8 heap information.</div></li><li><div class="item-name"><a class="struct" href="struct.IndexedPropertyHandlerConfiguration.html" title="struct v8::IndexedPropertyHandlerConfiguration">IndexedPropertyHandlerConfiguration</a></div></li><li><div class="item-name"><a class="struct" href="struct.Int8Array.html" title="struct v8::Int8Array">Int8Array</a></div><div class="desc docblock-short">An instance of Int8Array constructor (ES6 draft 15.13.6).</div></li><li><div class="item-name"><a class="struct" href="struct.Int16Array.html" title="struct v8::Int16Array">Int16Array</a></div><div class="desc docblock-short">An instance of Int16Array constructor (ES6 draft 15.13.6).</div></li><li><div class="item-name"><a class="struct" href="struct.Int32.html" title="struct v8::Int32">Int32</a></div><div class="desc docblock-short">A JavaScript value representing a 32-bit signed integer.</div></li><li><div class="item-name"><a class="struct" href="struct.Int32Array.html" title="struct v8::Int32Array">Int32Array</a></div><div class="desc docblock-short">An instance of Int32Array constructor (ES6 draft 15.13.6).</div></li><li><div class="item-name"><a class="struct" href="struct.Integer.html" title="struct v8::Integer">Integer</a></div><div class="desc docblock-short">A JavaScript value representing a signed integer.</div></li><li><div class="item-name"><a class="struct" href="struct.Isolate.html" title="struct v8::Isolate">Isolate</a></div><div class="desc docblock-short">Isolate represents an isolated instance of the V8 engine.  V8 isolates have
+completely separate states.  Objects from one isolate must not be used in
+other isolates.  The embedder can create multiple isolates and use them in
+parallel in multiple threads.  An isolate can be entered by at most one
+thread at any given time.  The Locker/Unlocker API must be used to
+synchronize.</div></li><li><div class="item-name"><a class="struct" href="struct.IsolateHandle.html" title="struct v8::IsolateHandle">IsolateHandle</a></div><div class="desc docblock-short">IsolateHandle is a thread-safe reference to an Isolate. It’s main use is to
+terminate execution of a running isolate from another thread.</div></li><li><div class="item-name"><a class="struct" href="struct.Local.html" title="struct v8::Local">Local</a></div><div class="desc docblock-short">An object reference managed by the v8 garbage collector.</div></li><li><div class="item-name"><a class="struct" href="struct.Location.html" title="struct v8::Location">Location</a></div><div class="desc docblock-short">A location in JavaScript source.</div></li><li><div class="item-name"><a class="struct" href="struct.Map.html" title="struct v8::Map">Map</a></div><div class="desc docblock-short">An instance of the built-in Map constructor (ECMA-262, 6th Edition, 23.1.1).</div></li><li><div class="item-name"><a class="struct" href="struct.Message.html" title="struct v8::Message">Message</a></div><div class="desc docblock-short">An error message.</div></li><li><div class="item-name"><a class="struct" href="struct.Module.html" title="struct v8::Module">Module</a></div><div class="desc docblock-short">A compiled JavaScript module.</div></li><li><div class="item-name"><a class="struct" href="struct.ModuleRequest.html" title="struct v8::ModuleRequest">ModuleRequest</a></div></li><li><div class="item-name"><a class="struct" href="struct.Name.html" title="struct v8::Name">Name</a></div><div class="desc docblock-short">A superclass for symbols and strings.</div></li><li><div class="item-name"><a class="struct" href="struct.NamedPropertyHandlerConfiguration.html" title="struct v8::NamedPropertyHandlerConfiguration">NamedPropertyHandlerConfiguration</a></div></li><li><div class="item-name"><a class="struct" href="struct.Number.html" title="struct v8::Number">Number</a></div><div class="desc docblock-short">A JavaScript number value (ECMA-262, 4.3.20)</div></li><li><div class="item-name"><a class="struct" href="struct.NumberObject.html" title="struct v8::NumberObject">NumberObject</a></div><div class="desc docblock-short">A Number object (ECMA-262, 4.3.21).</div></li><li><div class="item-name"><a class="struct" href="struct.Object.html" title="struct v8::Object">Object</a></div><div class="desc docblock-short">A JavaScript object (ECMA-262, 4.3.3)</div></li><li><div class="item-name"><a class="struct" href="struct.ObjectTemplate.html" title="struct v8::ObjectTemplate">ObjectTemplate</a></div><div class="desc docblock-short">An ObjectTemplate is used to create objects at runtime.</div></li><li><div class="item-name"><a class="struct" href="struct.OomDetails.html" title="struct v8::OomDetails">OomDetails</a></div></li><li><div class="item-name"><a class="struct" href="struct.OwnedIsolate.html" title="struct v8::OwnedIsolate">OwnedIsolate</a></div><div class="desc docblock-short">Same as Isolate but gets disposed when it goes out of scope.</div></li><li><div class="item-name"><a class="struct" href="struct.Platform.html" title="struct v8::Platform">Platform</a></div></li><li><div class="item-name"><a class="struct" href="struct.Primitive.html" title="struct v8::Primitive">Primitive</a></div><div class="desc docblock-short">The superclass of primitive values. See ECMA-262 4.3.2.</div></li><li><div class="item-name"><a class="struct" href="struct.PrimitiveArray.html" title="struct v8::PrimitiveArray">PrimitiveArray</a></div><div class="desc docblock-short">An array to hold Primitive values. This is used by the embedder to
+pass host defined options to the ScriptOptions during compilation.</div></li><li><div class="item-name"><a class="struct" href="struct.Private.html" title="struct v8::Private">Private</a></div><div class="desc docblock-short">A private symbol</div></li><li><div class="item-name"><a class="struct" href="struct.Promise.html" title="struct v8::Promise">Promise</a></div><div class="desc docblock-short">An instance of the built-in Promise constructor (ES6 draft).</div></li><li><div class="item-name"><a class="struct" href="struct.PromiseRejectMessage.html" title="struct v8::PromiseRejectMessage">PromiseRejectMessage</a></div></li><li><div class="item-name"><a class="struct" href="struct.PromiseResolver.html" title="struct v8::PromiseResolver">PromiseResolver</a></div></li><li><div class="item-name"><a class="struct" href="struct.PropertyAttribute.html" title="struct v8::PropertyAttribute">PropertyAttribute</a></div></li><li><div class="item-name"><a class="struct" href="struct.PropertyCallbackArguments.html" title="struct v8::PropertyCallbackArguments">PropertyCallbackArguments</a></div></li><li><div class="item-name"><a class="struct" href="struct.PropertyCallbackInfo.html" title="struct v8::PropertyCallbackInfo">PropertyCallbackInfo</a></div><div class="desc docblock-short">The information passed to a property callback about the context
+of the property access.</div></li><li><div class="item-name"><a class="struct" href="struct.PropertyDescriptor.html" title="struct v8::PropertyDescriptor">PropertyDescriptor</a></div></li><li><div class="item-name"><a class="struct" href="struct.PropertyFilter.html" title="struct v8::PropertyFilter">PropertyFilter</a></div></li><li><div class="item-name"><a class="struct" href="struct.Proxy.html" title="struct v8::Proxy">Proxy</a></div><div class="desc docblock-short">An instance of the built-in Proxy constructor (ECMA-262, 6th Edition,
+26.2.1).</div></li><li><div class="item-name"><a class="struct" href="struct.RegExp.html" title="struct v8::RegExp">RegExp</a></div><div class="desc docblock-short">An instance of the built-in RegExp constructor (ECMA-262, 15.10).</div></li><li><div class="item-name"><a class="struct" href="struct.ResolveModuleCallbackRet.html" title="struct v8::ResolveModuleCallbackRet">ResolveModuleCallbackRet</a></div><div class="desc docblock-short">Called during Module::instantiate_module. Provided with arguments:
+(context, specifier, import_assertions, referrer). Return None on error.</div></li><li><div class="item-name"><a class="struct" href="struct.ReturnValue.html" title="struct v8::ReturnValue">ReturnValue</a></div></li><li><div class="item-name"><a class="struct" href="struct.RustAllocatorVtable.html" title="struct v8::RustAllocatorVtable">RustAllocatorVtable</a></div><div class="desc docblock-short">A wrapper around the V8 Allocator class.</div></li><li><div class="item-name"><a class="struct" href="struct.Script.html" title="struct v8::Script">Script</a></div><div class="desc docblock-short">A compiled JavaScript script, tied to a Context which was active when the
+script was compiled.</div></li><li><div class="item-name"><a class="struct" href="struct.ScriptOrModule.html" title="struct v8::ScriptOrModule">ScriptOrModule</a></div><div class="desc docblock-short">A container type that holds relevant metadata for module loading.</div></li><li><div class="item-name"><a class="struct" href="struct.ScriptOrigin.html" title="struct v8::ScriptOrigin">ScriptOrigin</a></div><div class="desc docblock-short">The origin, within a file, of a script.</div></li><li><div class="item-name"><a class="struct" href="struct.Set.html" title="struct v8::Set">Set</a></div><div class="desc docblock-short">An instance of the built-in Set constructor (ECMA-262, 6th Edition, 23.2.1).</div></li><li><div class="item-name"><a class="struct" href="struct.SharedArrayBuffer.html" title="struct v8::SharedArrayBuffer">SharedArrayBuffer</a></div><div class="desc docblock-short">An instance of the built-in SharedArrayBuffer constructor.</div></li><li><div class="item-name"><a class="struct" href="struct.SharedPtr.html" title="struct v8::SharedPtr">SharedPtr</a></div><div class="desc docblock-short">Wrapper around a C++ shared_ptr. A shared_ptr may be be null.</div></li><li><div class="item-name"><a class="struct" href="struct.SharedRef.html" title="struct v8::SharedRef">SharedRef</a></div><div class="desc docblock-short">Wrapper around a C++ shared_ptr. The shared_ptr is assumed to contain a
+value and may not be null.</div></li><li><div class="item-name"><a class="struct" href="struct.Signature.html" title="struct v8::Signature">Signature</a></div><div class="desc docblock-short">A Signature specifies which receiver is valid for a function.</div></li><li><div class="item-name"><a class="struct" href="struct.StackFrame.html" title="struct v8::StackFrame">StackFrame</a></div><div class="desc docblock-short">A single JavaScript stack frame.</div></li><li><div class="item-name"><a class="struct" href="struct.StackTrace.html" title="struct v8::StackTrace">StackTrace</a></div><div class="desc docblock-short">Representation of a JavaScript stack trace. The information collected is a
+snapshot of the execution stack and the information remains valid after
+execution continues.</div></li><li><div class="item-name"><a class="struct" href="struct.StalledTopLevelAwaitMessage.html" title="struct v8::StalledTopLevelAwaitMessage">StalledTopLevelAwaitMessage</a></div></li><li><div class="item-name"><a class="struct" href="struct.StartupData.html" title="struct v8::StartupData">StartupData</a></div></li><li><div class="item-name"><a class="struct" href="struct.String.html" title="struct v8::String">String</a></div><div class="desc docblock-short">A JavaScript string value (ECMA-262, 4.3.17).</div></li><li><div class="item-name"><a class="struct" href="struct.StringObject.html" title="struct v8::StringObject">StringObject</a></div><div class="desc docblock-short">A String object (ECMA-262, 4.3.18).</div></li><li><div class="item-name"><a class="struct" href="struct.Symbol.html" title="struct v8::Symbol">Symbol</a></div><div class="desc docblock-short">A JavaScript symbol (ECMA-262 edition 6)</div></li><li><div class="item-name"><a class="struct" href="struct.SymbolObject.html" title="struct v8::SymbolObject">SymbolObject</a></div><div class="desc docblock-short">A Symbol object (ECMA-262 edition 6).</div></li><li><div class="item-name"><a class="struct" href="struct.SyntheticModuleEvaluationStepsRet.html" title="struct v8::SyntheticModuleEvaluationStepsRet">SyntheticModuleEvaluationStepsRet</a></div></li><li><div class="item-name"><a class="struct" href="struct.Template.html" title="struct v8::Template">Template</a></div><div class="desc docblock-short">The superclass of object and function templates.</div></li><li><div class="item-name"><a class="struct" href="struct.TryCatch.html" title="struct v8::TryCatch">TryCatch</a></div><div class="desc docblock-short">An external exception handler.</div></li><li><div class="item-name"><a class="struct" href="struct.TypedArray.html" title="struct v8::TypedArray">TypedArray</a></div><div class="desc docblock-short">A base class for an instance of TypedArray series of constructors
+(ES6 draft 15.13.6).</div></li><li><div class="item-name"><a class="struct" href="struct.Uint8Array.html" title="struct v8::Uint8Array">Uint8Array</a></div><div class="desc docblock-short">An instance of Uint8Array constructor (ES6 draft 15.13.6).</div></li><li><div class="item-name"><a class="struct" href="struct.Uint8ClampedArray.html" title="struct v8::Uint8ClampedArray">Uint8ClampedArray</a></div><div class="desc docblock-short">An instance of Uint8ClampedArray constructor (ES6 draft 15.13.6).</div></li><li><div class="item-name"><a class="struct" href="struct.Uint16Array.html" title="struct v8::Uint16Array">Uint16Array</a></div><div class="desc docblock-short">An instance of Uint16Array constructor (ES6 draft 15.13.6).</div></li><li><div class="item-name"><a class="struct" href="struct.Uint32.html" title="struct v8::Uint32">Uint32</a></div><div class="desc docblock-short">A JavaScript value representing a 32-bit unsigned integer.</div></li><li><div class="item-name"><a class="struct" href="struct.Uint32Array.html" title="struct v8::Uint32Array">Uint32Array</a></div><div class="desc docblock-short">An instance of Uint32Array constructor (ES6 draft 15.13.6).</div></li><li><div class="item-name"><a class="struct" href="struct.UnboundModuleScript.html" title="struct v8::UnboundModuleScript">UnboundModuleScript</a></div><div class="desc docblock-short">A compiled JavaScript module, not yet tied to a Context.</div></li><li><div class="item-name"><a class="struct" href="struct.UnboundScript.html" title="struct v8::UnboundScript">UnboundScript</a></div><div class="desc docblock-short">A compiled JavaScript script, not yet tied to a Context.</div></li><li><div class="item-name"><a class="struct" href="struct.UniquePtr.html" title="struct v8::UniquePtr">UniquePtr</a></div><div class="desc docblock-short">Pointer to object allocated on the C++ heap. The pointer may be null.</div></li><li><div class="item-name"><a class="struct" href="struct.UniqueRef.html" title="struct v8::UniqueRef">UniqueRef</a></div><div class="desc docblock-short">Pointer to object allocated on the C++ heap. The pointer may not be null.</div></li><li><div class="item-name"><a class="struct" href="struct.Value.html" title="struct v8::Value">Value</a></div><div class="desc docblock-short">The superclass of all JavaScript values and objects.</div></li><li><div class="item-name"><a class="struct" href="struct.ValueDeserializer.html" title="struct v8::ValueDeserializer">ValueDeserializer</a></div><div class="desc docblock-short">ValueDeserializer is a stack object used as entry-point for an owned and
+pinned heap object ValueDeserializerHeap.
+The ’a lifetime is the lifetime of the ValueDeserializerImpl implementation.
+The ’s lifetime is the lifetime of the HandleScope which is used to retrieve
+a Local&lt;’s, Context&gt; for the CallbackScopes</div></li><li><div class="item-name"><a class="struct" href="struct.ValueSerializer.html" title="struct v8::ValueSerializer">ValueSerializer</a></div></li><li><div class="item-name"><a class="struct" href="struct.WasmMemoryObject.html" title="struct v8::WasmMemoryObject">WasmMemoryObject</a></div></li><li><div class="item-name"><a class="struct" href="struct.WasmModuleObject.html" title="struct v8::WasmModuleObject">WasmModuleObject</a></div></li><li><div class="item-name"><a class="struct" href="struct.WasmStreaming.html" title="struct v8::WasmStreaming">WasmStreaming</a></div><div class="desc docblock-short">The V8 interface for WebAssembly streaming compilation.
+When streaming compilation is initiated, V8 passes a <a href="struct.WasmStreaming.html" title="struct v8::WasmStreaming">Self</a>
+object to the embedder such that the embedder can pass the
+input bytes for streaming compilation to V8.</div></li><li><div class="item-name"><a class="struct" href="struct.Weak.html" title="struct v8::Weak">Weak</a></div><div class="desc docblock-short">An object reference that does not prevent garbage collection for the object,
+and which allows installing finalization callbacks which will be called
+after the object has been GC’d.</div></li><li><div class="item-name"><a class="struct" href="struct.WriteOptions.html" title="struct v8::WriteOptions">WriteOptions</a></div></li></ul><h2 id="enums" class="small-section-header"><a href="#enums">Enums</a></h2><ul class="item-table"><li><div class="item-name"><a class="enum" href="enum.ConstructorBehavior.html" title="enum v8::ConstructorBehavior">ConstructorBehavior</a></div><div class="desc docblock-short">ConstructorBehavior::Allow creates a regular API function.</div></li><li><div class="item-name"><a class="enum" href="enum.DataError.html" title="enum v8::DataError">DataError</a></div></li><li><div class="item-name"><a class="enum" href="enum.FunctionCodeHandling.html" title="enum v8::FunctionCodeHandling">FunctionCodeHandling</a></div></li><li><div class="item-name"><a class="enum" href="enum.GarbageCollectionType.html" title="enum v8::GarbageCollectionType">GarbageCollectionType</a></div><div class="desc docblock-short">Types of garbage collections that can be requested via
+<a href="struct.Isolate.html#method.request_garbage_collection_for_testing" title="method v8::Isolate::request_garbage_collection_for_testing"><code>Isolate::request_garbage_collection_for_testing</code></a>.</div></li><li><div class="item-name"><a class="enum" href="enum.IndexFilter.html" title="enum v8::IndexFilter">IndexFilter</a></div></li><li><div class="item-name"><a class="enum" href="enum.IntegrityLevel.html" title="enum v8::IntegrityLevel">IntegrityLevel</a></div><div class="desc docblock-short">Object integrity levels can be used to restrict what can be done to an
+object’s properties.</div></li><li><div class="item-name"><a class="enum" href="enum.KeyCollectionMode.html" title="enum v8::KeyCollectionMode">KeyCollectionMode</a></div><div class="desc docblock-short">Keys/Properties filter enums:</div></li><li><div class="item-name"><a class="enum" href="enum.KeyConversionMode.html" title="enum v8::KeyConversionMode">KeyConversionMode</a></div></li><li><div class="item-name"><a class="enum" href="enum.MemoryPressureLevel.html" title="enum v8::MemoryPressureLevel">MemoryPressureLevel</a></div><div class="desc docblock-short">Memory pressure level for the MemoryPressureNotification.
+None hints V8 that there is no memory pressure.
+Moderate hints V8 to speed up incremental garbage collection at the cost
+of higher latency due to garbage collection pauses.
+Critical hints V8 to free memory as soon as possible. Garbage collection
+pauses at this level will be large.</div></li><li><div class="item-name"><a class="enum" href="enum.MicrotasksPolicy.html" title="enum v8::MicrotasksPolicy">MicrotasksPolicy</a></div><div class="desc docblock-short">Policy for running microtasks:</div></li><li><div class="item-name"><a class="enum" href="enum.ModuleStatus.html" title="enum v8::ModuleStatus">ModuleStatus</a></div><div class="desc docblock-short">The different states a module can be in.</div></li><li><div class="item-name"><a class="enum" href="enum.NewStringType.html" title="enum v8::NewStringType">NewStringType</a></div></li><li><div class="item-name"><a class="enum" href="enum.PromiseHookType.html" title="enum v8::PromiseHookType">PromiseHookType</a></div><div class="desc docblock-short">PromiseHook with type Init is called when a new promise is
+created. When a new promise is created as part of the chain in the
+case of Promise.then or in the intermediate promises created by
+Promise.{race, all}/AsyncFunctionAwait, we pass the parent promise
+otherwise we pass undefined.</div></li><li><div class="item-name"><a class="enum" href="enum.PromiseRejectEvent.html" title="enum v8::PromiseRejectEvent">PromiseRejectEvent</a></div></li><li><div class="item-name"><a class="enum" href="enum.PromiseState.html" title="enum v8::PromiseState">PromiseState</a></div></li><li><div class="item-name"><a class="enum" href="enum.SideEffectType.html" title="enum v8::SideEffectType">SideEffectType</a></div><div class="desc docblock-short">Options for marking whether callbacks may trigger JS-observable side
+effects. Side-effect-free callbacks are allowlisted during debug evaluation
+with throwOnSideEffect. It applies when calling a Function,
+FunctionTemplate, or an Accessor callback. For Interceptors, please see
+PropertyHandlerFlags’s kHasNoSideEffect.
+Callbacks that only cause side effects to the receiver are allowlisted if
+invoked on receiver objects that are created within the same debug-evaluate
+call, as these objects are temporary and the side effect does not escape.</div></li><li><div class="item-name"><a class="enum" href="enum.WasmAsyncSuccess.html" title="enum v8::WasmAsyncSuccess">WasmAsyncSuccess</a></div></li></ul><h2 id="constants" class="small-section-header"><a href="#constants">Constants</a></h2><ul class="item-table"><li><div class="item-name"><a class="constant" href="constant.ALL_PROPERTIES.html" title="constant v8::ALL_PROPERTIES">ALL_PROPERTIES</a></div></li><li><div class="item-name"><a class="constant" href="constant.DONT_DELETE.html" title="constant v8::DONT_DELETE">DONT_DELETE</a></div><div class="desc docblock-short">Not configurable. Corresponds to
+<code>Object.defineProperty(o, "p", { configurable: false })</code>.</div></li><li><div class="item-name"><a class="constant" href="constant.DONT_ENUM.html" title="constant v8::DONT_ENUM">DONT_ENUM</a></div><div class="desc docblock-short">Not enumerable. Corresponds to
+<code>Object.defineProperty(o, "p", { enumerable: false })</code>.</div></li><li><div class="item-name"><a class="constant" href="constant.GC_CALLBACK_FLAGS_COLLECT_ALL_AVAILABLE_GARBAGE.html" title="constant v8::GC_CALLBACK_FLAGS_COLLECT_ALL_AVAILABLE_GARBAGE">GC_CALLBACK_FLAGS_COLLECT_ALL_AVAILABLE_GARBAGE</a></div></li><li><div class="item-name"><a class="constant" href="constant.GC_CALLBACK_FLAGS_COLLECT_ALL_EXTERNAL_MEMORY.html" title="constant v8::GC_CALLBACK_FLAGS_COLLECT_ALL_EXTERNAL_MEMORY">GC_CALLBACK_FLAGS_COLLECT_ALL_EXTERNAL_MEMORY</a></div></li><li><div class="item-name"><a class="constant" href="constant.GC_CALLBACK_FLAGS_CONSTRUCT_RETAINED_OBJECT_INFOS.html" title="constant v8::GC_CALLBACK_FLAGS_CONSTRUCT_RETAINED_OBJECT_INFOS">GC_CALLBACK_FLAGS_CONSTRUCT_RETAINED_OBJECT_INFOS</a></div></li><li><div class="item-name"><a class="constant" href="constant.GC_CALLBACK_FLAGS_FORCED.html" title="constant v8::GC_CALLBACK_FLAGS_FORCED">GC_CALLBACK_FLAGS_FORCED</a></div></li><li><div class="item-name"><a class="constant" href="constant.GC_CALLBACK_FLAGS_NO_FLAGS.html" title="constant v8::GC_CALLBACK_FLAGS_NO_FLAGS">GC_CALLBACK_FLAGS_NO_FLAGS</a></div></li><li><div class="item-name"><a class="constant" href="constant.GC_CALLBACK_FLAGS_SCHEDULE_IDLE_GARBAGE_COLLECTION.html" title="constant v8::GC_CALLBACK_FLAGS_SCHEDULE_IDLE_GARBAGE_COLLECTION">GC_CALLBACK_FLAGS_SCHEDULE_IDLE_GARBAGE_COLLECTION</a></div></li><li><div class="item-name"><a class="constant" href="constant.GC_CALLBACK_FLAGS_SYNCHRONOUS_PHANTOM_CALLBACK_PROCESSING.html" title="constant v8::GC_CALLBACK_FLAGS_SYNCHRONOUS_PHANTOM_CALLBACK_PROCESSING">GC_CALLBACK_FLAGS_SYNCHRONOUS_PHANTOM_CALLBACK_PROCESSING</a></div></li><li><div class="item-name"><a class="constant" href="constant.GC_TYPE_ALL.html" title="constant v8::GC_TYPE_ALL">GC_TYPE_ALL</a></div></li><li><div class="item-name"><a class="constant" href="constant.GC_TYPE_INCREMENTAL_MARKING.html" title="constant v8::GC_TYPE_INCREMENTAL_MARKING">GC_TYPE_INCREMENTAL_MARKING</a></div></li><li><div class="item-name"><a class="constant" href="constant.GC_TYPE_MARK_SWEEP_COMPACT.html" title="constant v8::GC_TYPE_MARK_SWEEP_COMPACT">GC_TYPE_MARK_SWEEP_COMPACT</a></div></li><li><div class="item-name"><a class="constant" href="constant.GC_TYPE_MINOR_MARK_COMPACT.html" title="constant v8::GC_TYPE_MINOR_MARK_COMPACT">GC_TYPE_MINOR_MARK_COMPACT</a></div></li><li><div class="item-name"><a class="constant" href="constant.GC_TYPE_PROCESS_WEAK_CALLBACK.html" title="constant v8::GC_TYPE_PROCESS_WEAK_CALLBACK">GC_TYPE_PROCESS_WEAK_CALLBACK</a></div></li><li><div class="item-name"><a class="constant" href="constant.GC_TYPE_TYPE_SCAVENGE.html" title="constant v8::GC_TYPE_TYPE_SCAVENGE">GC_TYPE_TYPE_SCAVENGE</a></div></li><li><div class="item-name"><a class="constant" href="constant.NONE.html" title="constant v8::NONE">NONE</a></div><div class="desc docblock-short">No property attributes.</div></li><li><div class="item-name"><a class="constant" href="constant.ONLY_CONFIGURABLE.html" title="constant v8::ONLY_CONFIGURABLE">ONLY_CONFIGURABLE</a></div></li><li><div class="item-name"><a class="constant" href="constant.ONLY_ENUMERABLE.html" title="constant v8::ONLY_ENUMERABLE">ONLY_ENUMERABLE</a></div></li><li><div class="item-name"><a class="constant" href="constant.ONLY_WRITABLE.html" title="constant v8::ONLY_WRITABLE">ONLY_WRITABLE</a></div></li><li><div class="item-name"><a class="constant" href="constant.READ_ONLY.html" title="constant v8::READ_ONLY">READ_ONLY</a></div><div class="desc docblock-short">Not writable. Corresponds to
+<code>Object.defineProperty(o, "p", { writable: false })</code>.</div></li><li><div class="item-name"><a class="constant" href="constant.SKIP_STRINGS.html" title="constant v8::SKIP_STRINGS">SKIP_STRINGS</a></div></li><li><div class="item-name"><a class="constant" href="constant.SKIP_SYMBOLS.html" title="constant v8::SKIP_SYMBOLS">SKIP_SYMBOLS</a></div></li></ul><h2 id="traits" class="small-section-header"><a href="#traits">Traits</a></h2><ul class="item-table"><li><div class="item-name"><a class="trait" href="trait.Handle.html" title="trait v8::Handle">Handle</a></div></li><li><div class="item-name"><a class="trait" href="trait.HostImportModuleDynamicallyCallback.html" title="trait v8::HostImportModuleDynamicallyCallback">HostImportModuleDynamicallyCallback</a></div><div class="desc docblock-short">HostImportModuleDynamicallyCallback is called when we require the embedder
+to load a module. This is used as part of the dynamic import syntax.</div></li><li><div class="item-name"><a class="trait" href="trait.MapFnTo.html" title="trait v8::MapFnTo">MapFnTo</a></div></li><li><div class="item-name"><a class="trait" href="trait.ValueDeserializerHelper.html" title="trait v8::ValueDeserializerHelper">ValueDeserializerHelper</a></div><div class="desc docblock-short">Trait used for direct read from the deserialization buffer.
+Mostly used by the read_host_object callback function in the
+ValueDeserializerImpl trait to create custom deserialization logic.</div></li><li><div class="item-name"><a class="trait" href="trait.ValueDeserializerImpl.html" title="trait v8::ValueDeserializerImpl">ValueDeserializerImpl</a></div><div class="desc docblock-short">The ValueDeserializerImpl trait allows for
+custom callback functions used by v8.</div></li><li><div class="item-name"><a class="trait" href="trait.ValueSerializerHelper.html" title="trait v8::ValueSerializerHelper">ValueSerializerHelper</a></div><div class="desc docblock-short">Trait used for direct write to the serialization buffer.
+Mostly used by the write_host_object callback function in the
+ValueSerializerImpl trait to create custom serialization logic.</div></li><li><div class="item-name"><a class="trait" href="trait.ValueSerializerImpl.html" title="trait v8::ValueSerializerImpl">ValueSerializerImpl</a></div><div class="desc docblock-short">The ValueSerializerImpl trait allows for
+custom callback functions used by v8.</div></li></ul><h2 id="functions" class="small-section-header"><a href="#functions">Functions</a></h2><ul class="item-table"><li><div class="item-name"><a class="fn" href="fn.boxed_slice_deleter_callback.html" title="fn v8::boxed_slice_deleter_callback">boxed_slice_deleter_callback</a><sup title="unsafe function">⚠</sup></div></li><li><div class="item-name"><a class="fn" href="fn.new_default_allocator.html" title="fn v8::new_default_allocator">new_default_allocator</a></div><div class="desc docblock-short">malloc/free based convenience allocator.</div></li><li><div class="item-name"><a class="fn" href="fn.new_default_platform.html" title="fn v8::new_default_platform">new_default_platform</a></div><div class="desc docblock-short">Returns a new instance of the default v8::Platform implementation.</div></li><li><div class="item-name"><a class="fn" href="fn.new_rust_allocator.html" title="fn v8::new_rust_allocator">new_rust_allocator</a><sup title="unsafe function">⚠</sup></div><div class="desc docblock-short">Creates an allocator managed by Rust code.</div></li><li><div class="item-name"><a class="fn" href="fn.new_single_threaded_default_platform.html" title="fn v8::new_single_threaded_default_platform">new_single_threaded_default_platform</a></div><div class="desc docblock-short">The same as new_default_platform() but disables the worker thread pool.
+It must be used with the –single-threaded V8 flag.</div></li><li><div class="item-name"><a class="fn" href="fn.null.html" title="fn v8::null">null</a></div></li><li><div class="item-name"><a class="fn" href="fn.undefined.html" title="fn v8::undefined">undefined</a></div></li><li><div class="item-name"><a class="fn" href="fn.vec_deleter_callback.html" title="fn v8::vec_deleter_callback">vec_deleter_callback</a><sup title="unsafe function">⚠</sup></div></li></ul><h2 id="types" class="small-section-header"><a href="#types">Type Definitions</a></h2><ul class="item-table"><li><div class="item-name"><a class="type" href="type.AccessorNameGetterCallback.html" title="type v8::AccessorNameGetterCallback">AccessorNameGetterCallback</a></div><div class="desc docblock-short">AccessorNameGetterCallback is used as callback functions when getting a
+particular property. See Object and ObjectTemplate’s method SetAccessor.</div></li><li><div class="item-name"><a class="type" href="type.AccessorNameSetterCallback.html" title="type v8::AccessorNameSetterCallback">AccessorNameSetterCallback</a></div></li><li><div class="item-name"><a class="type" href="type.BackingStoreDeleterCallback.html" title="type v8::BackingStoreDeleterCallback">BackingStoreDeleterCallback</a></div></li><li><div class="item-name"><a class="type" href="type.FunctionCallback.html" title="type v8::FunctionCallback">FunctionCallback</a></div></li><li><div class="item-name"><a class="type" href="type.HostCreateShadowRealmContextCallback.html" title="type v8::HostCreateShadowRealmContextCallback">HostCreateShadowRealmContextCallback</a></div><div class="desc docblock-short"><code>HostCreateShadowRealmContextCallback</code> is called each time a <code>ShadowRealm</code>
+is being constructed. You can use <a href="struct.HandleScope.html#method.get_current_context" title="method v8::HandleScope::get_current_context"><code>HandleScope::get_current_context</code></a> to
+get the <a href="struct.Context.html" title="struct v8::Context"><code>Context</code></a> in which the constructor is being run.</div></li><li><div class="item-name"><a class="type" href="type.HostInitializeImportMetaObjectCallback.html" title="type v8::HostInitializeImportMetaObjectCallback">HostInitializeImportMetaObjectCallback</a></div><div class="desc docblock-short">HostInitializeImportMetaObjectCallback is called the first time import.meta
+is accessed for a module. Subsequent access will reuse the same value.</div></li><li><div class="item-name"><a class="type" href="type.IndexedPropertyGetterCallback.html" title="type v8::IndexedPropertyGetterCallback">IndexedPropertyGetterCallback</a></div><div class="desc docblock-short">IndexedPropertyGetterCallback is used as callback functions when registering a named handler
+particular property. See Object and ObjectTemplate’s method SetHandler.</div></li><li><div class="item-name"><a class="type" href="type.IndexedPropertySetterCallback.html" title="type v8::IndexedPropertySetterCallback">IndexedPropertySetterCallback</a></div></li><li><div class="item-name"><a class="type" href="type.MessageCallback.html" title="type v8::MessageCallback">MessageCallback</a></div></li><li><div class="item-name"><a class="type" href="type.NearHeapLimitCallback.html" title="type v8::NearHeapLimitCallback">NearHeapLimitCallback</a></div></li><li><div class="item-name"><a class="type" href="type.OomErrorCallback.html" title="type v8::OomErrorCallback">OomErrorCallback</a></div></li><li><div class="item-name"><a class="type" href="type.PromiseHook.html" title="type v8::PromiseHook">PromiseHook</a></div></li><li><div class="item-name"><a class="type" href="type.PromiseRejectCallback.html" title="type v8::PromiseRejectCallback">PromiseRejectCallback</a></div></li><li><div class="item-name"><a class="type" href="type.PropertyEnumeratorCallback.html" title="type v8::PropertyEnumeratorCallback">PropertyEnumeratorCallback</a></div></li><li><div class="item-name"><a class="type" href="type.ResolveModuleCallback.html" title="type v8::ResolveModuleCallback">ResolveModuleCallback</a></div></li><li><div class="item-name"><a class="type" href="type.SyntheticModuleEvaluationSteps.html" title="type v8::SyntheticModuleEvaluationSteps">SyntheticModuleEvaluationSteps</a></div></li></ul><h2 id="unions" class="small-section-header"><a href="#unions">Unions</a></h2><ul class="item-table"><li><div class="item-name"><a class="union" href="union.ExternalReference.html" title="union v8::ExternalReference">ExternalReference</a></div></li></ul></section></div></main></div>
