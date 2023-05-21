@@ -11,7 +11,7 @@ async fn connect() -> Result<Response> {
     let body = serde_json::to_string(&json!({
           "model": "gpt-3.5-turbo",
         "messages":[
-            {"role": "user", "content": "今夕是何年?"}
+            {"role": "user", "content": "hi?"}
         ],
         // "model":"text-davinci-002",
         // "prompt": "Hello, who are you?"
