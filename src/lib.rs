@@ -1,3 +1,5 @@
+pub mod gpt;
+
 use wasm_bindgen::prelude::*;
 
 #[wasm_bindgen]
