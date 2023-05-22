@@ -1,7 +1,5 @@
 pub mod gpt;
 
-use std::future::Future;
-
 use anyhow::Result;
 use reqwest::Error;
 use wasm_bindgen::prelude::*;
@@ -26,12 +24,15 @@ impl BalaBala {
         Self { host_name }
     }
 
-    pub async fn fetch_html(&self, api: String) -> js_sys::Promise {
-        // let api = "/v8/0.71.2/v8";
-        // let host_name = "https://docs.rs";
-        log(&format!("【 api 】==> {:?}", api));
+    pub async fn fetch_html(&self, api: String) -> String {
         let url = format!("{}{}", self.host_name, api);
         log(&url);
+
+        get_html(&url).await
+    }
+
+    pub async fn fetch_html_promise(&self, api: String) -> js_sys::Promise {
+        let url = format!("{}{}", self.host_name, api);
 
         future_to_promise(async move {
             match _get_html(&url).await {
