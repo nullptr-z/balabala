@@ -1,23 +1,58 @@
 pub mod gpt;
 
+use std::future::Future;
+
+use anyhow::Result;
+use reqwest::Error;
 use wasm_bindgen::prelude::*;
+use wasm_bindgen_futures::future_to_promise;
 
 #[wasm_bindgen]
-pub async fn greet() -> String {
-    // web_sys::console::log_1(&"Hello, my_project!".into());
-
-    let result = get_html().await.unwrap();
-
-    result
+extern "C" {
+    #[wasm_bindgen(js_namespace = console)]
+    fn log(s: &str);
 }
 
-use reqwest::Error;
+#[wasm_bindgen]
+pub struct BalaBala {
+    host_name: String,
+}
 
-async fn get_html() -> Result<String, Error> {
-    let body = reqwest::get("https://docs.rs/v8/0.71.2/v8")
-        .await?
-        .text()
-        .await?;
+#[wasm_bindgen]
+impl BalaBala {
+    #[wasm_bindgen(constructor)]
+    pub fn new(host_name: String) -> Self {
+        // log(&format!("【 new param 】==> {:?}", host_name));
+        Self { host_name }
+    }
+
+    pub async fn fetch_html(&self, api: String) -> js_sys::Promise {
+        // let api = "/v8/0.71.2/v8";
+        // let host_name = "https://docs.rs";
+        log(&format!("【 api 】==> {:?}", api));
+        let url = format!("{}{}", self.host_name, api);
+        log(&url);
+
+        future_to_promise(async move {
+            match _get_html(&url).await {
+                Ok(res) => Ok(JsValue::from_str(&res)),
+                Err(err) => Err(JsValue::from_str(&err.to_string())),
+            }
+        })
+    }
+
+    pub fn get_host_name(&self) -> String {
+        self.host_name.clone()
+    }
+}
+
+#[wasm_bindgen]
+pub async fn get_html(url: &str) -> String {
+    _get_html(url).await.unwrap()
+}
+
+pub async fn _get_html(url: &str) -> Result<String, Error> {
+    let body = reqwest::get(url).await?.text().await?;
 
     Ok(body)
 }

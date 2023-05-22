@@ -1,19 +1,41 @@
-import wasm from 'balabala'
+import _bala, { BalaBala } from 'balabala'
 import { load } from 'cheerio';
 
 (async function main() {
-  const html = await wasm.greet();
-  docs_parse(html);
+  let balabala = new BalaBala("https://docs.rs");
+
+  const hostName = balabala.get_host_name();
+
+  const page_html = await balabala.fetch_html("/v8/0.71.2/v8");
+  // const page_html = await _bala.get_html(hostName, "/v8/0.71.2/v8");
+
+  let html_context = load(page_html);
+
+  const body_context = docs_parse(html_context);
+  // const body_html = html_context('body').html();  // 或者其他你想提取的元素
+
+  const links = get_link_all(body_context);
+
+  return links
 })()
 
 
-function docs_parse(html) {
-  const html_context = load(html);
+function docs_parse(html_context) {
   // const pure = html_context('.pure-g').text();
   html_context('svg').remove(); // 删除svg
   html_context('img').remove(); // 删除svg
 
-  // 输出到 stdout
-  const body = html_context('body').html();  // 或者其他你想提取的元素
-  console.log(body);
+  return html_context
+}
+
+function get_link_all(body_context) {
+  // const body_context = load(body);
+  const links = []
+  body_context('a').each((_i, item) => {
+    const url = body_context(item).attr('href');
+    links.push(url)
+  })
+
+  console.log("【 links 】==>", links);
+  return links
 }

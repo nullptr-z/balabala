@@ -1,7 +1,8 @@
+use std::fs;
+
 use anyhow::Result;
 use reqwest::{Client, Response};
 use serde_json::json;
-use tokio::fs;
 
 const OPEN_AI_API_KEY: &str = "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";
 
@@ -39,7 +40,7 @@ async fn connect() -> Result<Response> {
 
 async fn write_to_file(res: Response, file_name: &str) -> Result<()> {
     let body = res.text().await?;
-    fs::write(file_name, body).await?;
+    fs::write(file_name, body)?;
 
     Ok(())
 }
@@ -63,7 +64,6 @@ async fn get_models() -> Result<Response> {
 
 #[cfg(test)]
 mod tests {
-    use anyhow::{Ok, Result};
 
     use crate::gpt::write_to_file;
 
