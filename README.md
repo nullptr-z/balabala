@@ -62,7 +62,7 @@ cargo install cargo-watch
 cargo build
 
 # 在 Node.js 中安装依赖
-cd node
+cd parse
 npm install
 ```
 
@@ -77,4 +77,6 @@ cargo watch -s "wasm-pack build --target nodejs --out-dir wasm/pkg"
 
 ### 手动编译
 你需要编译 Rust 代码为 WASM：
-./wasm/wasm_pack_script.sh
+```sh
+wasm-pack build --target nodejs --out-dir wasm/pkg
+```
