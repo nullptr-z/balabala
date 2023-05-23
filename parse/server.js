@@ -49,6 +49,6 @@ function get_link_all(body_context) {
     links.push(url)
   })
 
-  console.log("【 links 】==>", links);
+  // console.log("【 links 】==>", links);
   return links
 }
