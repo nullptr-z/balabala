@@ -32,7 +32,7 @@ impl BalaBala {
 
     pub async fn fetch_html(&self, api: String) -> String {
         let url = format!("{}{}", self.host_name, api);
-        log(&url);
+        // log(&url);
 
         get_html(&url).await
     }
@@ -132,11 +132,20 @@ impl BalaBala {
     }
 
     // todo 1：使用 std::future来做 ** 很练技术，有挑战，有助于了解底层：poll, wait, pending
-}
+    pub async fn fetch_html_std_future(&self, apis_js: js_sys::Array) -> String {
+        let apis = apis_js.to_vec();
+        let arr = js_sys::Array::new();
 
-#[wasm_bindgen]
-pub async fn get_html(url: &str) -> String {
-    _get_html(url).await.unwrap()
+        for api in apis {
+            let url = format!("{}{}", self.host_name, api.as_string().unwrap());
+
+
+            std::future::
+
+        }
+
+        "".to_string()
+    }
 }
 
 pub async fn _get_html(url: &str) -> Result<String, Error> {
@@ -155,4 +164,9 @@ pub async fn _get_html2(url: String) -> Result<JsValue, JsValue> {
         .map_err(|err| JsValue::from(format!("{}", err.to_string())))?;
 
     Ok(JsValue::from(body))
+}
+
+#[wasm_bindgen]
+pub async fn get_html(url: &str) -> String {
+    _get_html(url).await.unwrap()
 }
