@@ -1,7 +1,5 @@
 pub mod gpt;
 
-use std::future::IntoFuture;
-
 use anyhow::Result;
 use futures::FutureExt;
 use js_sys::Promise;
@@ -83,48 +81,21 @@ impl BalaBala {
             .collect::<Vec<_>>();
         js_sys::Array::from_iter(results)
         // 方法二 end
-
-        // for api in apis {
-        //     let url = format!("{}{}", self.host_name, api.as_string().unwrap());
-        //     let res = get_html(&url).await;
-        //     log(&url);
-        //     log(&format!(
-        //         "---------------------------------------------------------------------{:?}",
-        //         res
-        //     ));
-        //     result.push(JsValue::from_str(&res));
-        // }
     }
 
-    pub async fn fetch_html_promise_all(&self, string_arr: js_sys::Array) -> Promise {
-        let apis = string_arr.to_vec();
+    pub async fn fetch_html_promise_all(&self, apis_js: js_sys::Array) -> Promise {
+        let apis = apis_js.to_vec();
         let array = js_sys::Array::new();
 
         for api in apis {
             let url = format!("{}{}", self.host_name, api.as_string().unwrap());
-
             // 方法一
-            // 这里使用了FutureExt的map方法，将Future<Output = Result<String, Error>> 转成了 Future<Output = JsValue>
-            // let promises = get_html(&url).map(JsValue::from).await; // 简写
-            let promises = get_html(&url)
-                .map(|value| {
-                    log(&format!(
-                        "---------------------------------------------------------------------{:?}",
-                        value
-                    ));
-                    let promise = JsValue::from(value);
-                    promise
-                })
-                .await;
-            array.push(&promises);
-            // 方法一 end
-
-            // 方法二
             let promise = future_to_promise(async move {
                 // 这里不使用FutureExt的map，手动转换
                 // ---
                 // 如果这里不想match，就的吧String 和 Error转成JsValue
-                // 因为future_to_promise 接受一个 Future<Output = Result<JsValue, JsValue>>
+                // 因为future_to_promise 接受一个 Future<Output = Result<JsValue, JsValue>>；见方法二 fetch_html_promise_all2
+                // 实际上就是推迟了类型处理
                 match _get_html(&url).await {
                     Ok(value) => {
                         log(&format!("---------------------------------------------------------------------{:?}",value));
@@ -134,8 +105,34 @@ impl BalaBala {
                 }
             });
             array.push(&promise);
+            // 方法一 end
+        }
+
+        log(&format!("array {:?}", array));
+
+        let promise = js_sys::Promise::all(&array);
+
+        promise
+    }
+
+    pub async fn fetch_html_promise_all2(&self, apis_js: js_sys::Array) -> Promise {
+        let apis = apis_js.to_vec();
+        let array = js_sys::Array::new();
+
+        for api in apis {
+            let url = format!("{}{}", self.host_name, api.as_string().unwrap());
+            // 方法二
+            // 这里使用了FutureExt的map方法，将Future<Output = Result<String, Error>> 转成了 Future<Output = JsValue>
+            // let promises = get_html(&url).map(JsValue::from).await; // 简写
+            // array.push(&promises);
+
+            let future = _get_html2(url);
+            let promises = future_to_promise(future);
+            array.push(&promises);
             // 方法二 end
         }
+
+        log(&format!("array {:?}", array));
 
         let promise = js_sys::Promise::all(&array);
 
@@ -152,4 +149,16 @@ pub async fn _get_html(url: &str) -> Result<String, Error> {
     let body = reqwest::get(url).await?.text().await?;
 
     Ok(body)
+}
+
+// 也许这种做法也许更应该更自然
+pub async fn _get_html2(url: String) -> Result<JsValue, JsValue> {
+    let body = reqwest::get(url)
+        .await
+        .map_err(|err| JsValue::from(format!("{}", err.to_string())))?
+        .text()
+        .await
+        .map_err(|err| JsValue::from(format!("{}", err.to_string())))?;
+
+    Ok(JsValue::from(body))
 }

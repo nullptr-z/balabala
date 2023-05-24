@@ -26,7 +26,7 @@ import { load } from 'cheerio';
     'struct.ArrayBufferView.html',
   ]
 
-  const htmlArray = await balabala.fetch_html_promise_all(linkss);
+  const htmlArray = await balabala.fetch_html_promise_all2(linkss);
   // console.log("【 htmlArray 】==>", htmlArray);
 
 
