@@ -59,8 +59,6 @@ impl BalaBala {
         });
 
         let results = futures::future::join_all(futures).await;
-        // todo 1：使用 js_sys::Promise 来做
-        // todo 1：使用 std::future来做 ** 很练技术，有挑战，有助于了解底层：poll, wait, pending
 
         // 方法一
         // let results = results.into_iter().collect::<Result<Vec<_>, _>>().unwrap();
@@ -72,10 +70,6 @@ impl BalaBala {
             .into_iter()
             .map(|result| {
                 let value = result.unwrap();
-                log(&format!(
-                    "---------------------------------------------------------------------{:?}",
-                    value
-                ));
                 JsValue::from_str(&value)
             })
             .collect::<Vec<_>>();
@@ -83,29 +77,26 @@ impl BalaBala {
         // 方法二 end
     }
 
+    // 使用 js_sys::Promise 来做
     pub async fn fetch_html_promise_all(&self, apis_js: js_sys::Array) -> Promise {
         let apis = apis_js.to_vec();
         let array = js_sys::Array::new();
 
         for api in apis {
             let url = format!("{}{}", self.host_name, api.as_string().unwrap());
-            // 方法一
             let promise = future_to_promise(async move {
-                // 这里不使用FutureExt的map，手动转换
-                // ---
                 // 如果这里不想match，就的吧String 和 Error转成JsValue
                 // 因为future_to_promise 接受一个 Future<Output = Result<JsValue, JsValue>>；见方法二 fetch_html_promise_all2
                 // 实际上就是推迟了类型处理
                 match _get_html(&url).await {
                     Ok(value) => {
-                        log(&format!("---------------------------------------------------------------------{:?}",value));
+                        // log(&format!("---------------------------------------------------------------------{:?}",value));
                         Ok(JsValue::from(value))
                     }
                     Err(err) => Err(JsValue::from_str(&err.to_string())),
                 }
             });
             array.push(&promise);
-            // 方法一 end
         }
 
         log(&format!("array {:?}", array));
@@ -115,21 +106,22 @@ impl BalaBala {
         promise
     }
 
+    // 使用 js_sys::Promise 来做，但是这里使用_get_html2方法，将_get_html返回值Future<Output = Result<String, Error>> 转成了 Future<Output = JsValue>
     pub async fn fetch_html_promise_all2(&self, apis_js: js_sys::Array) -> Promise {
         let apis = apis_js.to_vec();
         let array = js_sys::Array::new();
 
         for api in apis {
             let url = format!("{}{}", self.host_name, api.as_string().unwrap());
-            // 方法二
-            // 这里使用了FutureExt的map方法，将Future<Output = Result<String, Error>> 转成了 Future<Output = JsValue>
+
+            // 这里使用了FutureExt的map方法，将Future<Output = Result<String, Error>> 转成了 Future<Output = Result<JsValue, JsValue>》
+            // 注意：这里map会导致代码同步，除非使用 async 包裹起来
             // let promises = get_html(&url).map(JsValue::from).await; // 简写
             // array.push(&promises);
 
             let future = _get_html2(url);
             let promises = future_to_promise(future);
             array.push(&promises);
-            // 方法二 end
         }
 
         log(&format!("array {:?}", array));
@@ -138,6 +130,8 @@ impl BalaBala {
 
         promise
     }
+
+    // todo 1：使用 std::future来做 ** 很练技术，有挑战，有助于了解底层：poll, wait, pending
 }
 
 #[wasm_bindgen]
