@@ -170,7 +170,7 @@ pub async fn _get_html2(url: String) -> Result<JsValue, JsValue> {
 pub fn _get_html3(url: String) {
     let mut task_control = taskController::TaskController::new();
     task_control.spawn(Box::pin(async {
-        "<div>Title</div>".to_string()
+        url
         // reqwest::get(url).await.unwrap().text().await.unwrap()
     }));
 
