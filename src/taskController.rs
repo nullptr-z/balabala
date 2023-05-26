@@ -1,25 +1,38 @@
+use std::fmt::Debug;
 use std::future;
 use std::ops::{Deref, DerefMut};
 use std::pin::Pin;
 use std::task::{Context, Poll, RawWaker, RawWakerVTable, Waker};
 
-pub struct TaskController {
-    tasks: Vec<Pin<Box<dyn future::Future<Output = String>>>>,
-    context: Context<'static>,
+#[derive(Debug)]
+pub struct Futures<T>(T);
+
+impl<T: Debug + Clone> future::Future for Futures<T> {
+    type Output = T;
+
+    fn poll(self: Pin<&mut Self>, cx: &mut Context<'_>) -> Poll<Self::Output> {
+        let t = self.run_task();
+        Poll::Ready(t.clone())
+        // match self.run_task() {
+        //     Poll::Ready(t) => Poll::Ready(t),
+        //     Poll::Pending => {
+        //         cx.waker().wake_by_ref();
+        //         Poll::Pending
+        //     }
+        // }
+    }
 }
 
-impl future::Future for TaskController {
-    type Output = ();
-
-    fn poll(mut self: Pin<&mut Self>, cx: &mut Context<'_>) -> Poll<Self::Output> {
-        self.run_task();
-        if self.tasks.is_empty() {
-            Poll::Ready(())
-        } else {
-            cx.waker().wake_by_ref();
-            Poll::Pending
-        }
+impl<T: Debug + Clone> Futures<T> {
+    fn run_task(&self) -> T {
+        self.0.clone()
     }
+}
+
+pub struct TaskController {
+    // todo: 改成自己 Vec<Futures>
+    tasks: Vec<Pin<Box<dyn future::Future<Output = String>>>>,
+    context: Context<'static>,
 }
 
 impl TaskController {
@@ -33,7 +46,7 @@ impl TaskController {
         }
     }
 
-    pub fn awaits(mut self) -> Poll<()> {
+    pub fn awaits(mut self) -> Poll<String> {
         let waker = Box::leak(Box::new(create_waker()));
         let mut context = Context::from_waker(waker);
 
@@ -44,6 +57,7 @@ impl TaskController {
         self.tasks.push(task);
     }
 
+    // 不适用Future的poll
     pub fn run_task(&mut self) {
         while !self.tasks.is_empty() {
             let mut idx = 0;
@@ -51,6 +65,7 @@ impl TaskController {
                 let task = &mut self.tasks[idx];
                 match task.as_mut().poll(&mut self.context) {
                     Poll::Ready(value) => {
+                        // todo: 将value返回出去
                         println!("【 value 】==> {:?}", value);
                         self.tasks.swap_remove(idx);
                     }
@@ -59,6 +74,21 @@ impl TaskController {
                     }
                 }
             }
+        }
+    }
+}
+
+impl future::Future for TaskController {
+    type Output = String;
+
+    fn poll(mut self: Pin<&mut Self>, cx: &mut Context<'_>) -> Poll<Self::Output> {
+        // todo: 在这里接受返回值,  ready 出去
+        self.run_task();
+        if self.tasks.is_empty() {
+            Poll::Ready("TaskController".to_string())
+        } else {
+            cx.waker().wake_by_ref();
+            Poll::Pending
         }
     }
 }
@@ -84,7 +114,11 @@ fn create_waker() -> Waker {
 #[cfg(test)]
 mod test_task_controller {
 
-    use super::TaskController;
+    use std::pin::Pin;
+
+    use futures::Future;
+
+    use super::{Futures, TaskController};
 
     #[test]
     fn test_task_controller() {
@@ -92,6 +126,9 @@ mod test_task_controller {
         task_controller.spawn(Box::pin(async { "Hello".to_string() }));
         task_controller.spawn(Box::pin(async { "future".to_string() }));
 
-        task_controller.awaits();
+        let futu = Futures("1234".to_string());
+        task_controller.spawn(Box::pin(futu));
+
+        task_controller.run_task();
     }
 }
