@@ -1,7 +1,10 @@
 pub mod gpt;
+pub mod taskController;
+
+use std::{pin::Pin, task::Poll};
 
 use anyhow::Result;
-use futures::FutureExt;
+use futures::{Future, FutureExt};
 use js_sys::Promise;
 use reqwest::Error;
 use wasm_bindgen::{__rt::IntoJsResult, convert::IntoWasmAbi, prelude::*};
@@ -132,16 +135,13 @@ impl BalaBala {
     }
 
     // todo 1：使用 std::future来做 ** 很练技术，有挑战，有助于了解底层：poll, wait, pending
-    pub async fn fetch_html_std_future(&self, apis_js: js_sys::Array) -> String {
+    pub fn fetch_html_sync(&self, apis_js: js_sys::Array) -> String {
         let apis = apis_js.to_vec();
         let arr = js_sys::Array::new();
 
         for api in apis {
             let url = format!("{}{}", self.host_name, api.as_string().unwrap());
-
-
-            std::future::
-
+            _get_html3(&url);
         }
 
         "".to_string()
@@ -164,6 +164,18 @@ pub async fn _get_html2(url: String) -> Result<JsValue, JsValue> {
         .map_err(|err| JsValue::from(format!("{}", err.to_string())))?;
 
     Ok(JsValue::from(body))
+}
+
+// 使用Poll来做异步任务
+pub fn _get_html3(url: &str) -> Result<JsValue, JsValue> {
+    // let ta: taskController::TaskControllersks = taskController::TaskController::new();
+    // let task = reqwest::get(url);
+    // tasks.spwn(Box::pin(task.into()));
+    // let body = todo!();
+
+    // body
+
+    todo!("使用Poll来做异步任务")
 }
 
 #[wasm_bindgen]
