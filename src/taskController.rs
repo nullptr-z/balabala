@@ -1,19 +1,11 @@
 use std::future;
-use std::ops::Deref;
+use std::ops::{Deref, DerefMut};
 use std::pin::Pin;
 use std::task::{Context, Poll, RawWaker, RawWakerVTable, Waker};
 
 pub struct TaskController {
-    tasks: Vec<Pin<Box<dyn future::Future<Output = ()>>>>,
+    tasks: Vec<Pin<Box<dyn future::Future<Output = String>>>>,
     context: Context<'static>,
-}
-
-impl Deref for TaskController {
-    type Target = Context<'static>;
-
-    fn deref(&self) -> &Self::Target {
-        &self.context
-    }
 }
 
 impl future::Future for TaskController {
@@ -32,21 +24,23 @@ impl future::Future for TaskController {
 
 impl TaskController {
     pub fn new() -> Self {
-        let waker = create_waker();
-        let waker = Box::leak(Box::new(waker));
-
+        let waker = Box::leak(Box::new(create_waker()));
         let context = Context::from_waker(waker);
+
         Self {
             tasks: Vec::new(),
             context,
         }
     }
 
-    pub fn poll_as(mut self) -> Poll<()> {
-        future::Future::poll(Pin::new(&mut self), &mut self.context)
+    pub fn awaits(mut self) -> Poll<()> {
+        let waker = Box::leak(Box::new(create_waker()));
+        let mut context = Context::from_waker(waker);
+
+        future::Future::poll(Pin::new(&mut self), &mut context)
     }
 
-    pub fn spwn(&mut self, task: Pin<Box<dyn future::Future<Output = ()>>>) {
+    pub fn spawn(&mut self, task: Pin<Box<dyn future::Future<Output = String>>>) {
         self.tasks.push(task);
     }
 
@@ -55,10 +49,14 @@ impl TaskController {
             let mut idx = 0;
             while idx < self.tasks.len() {
                 let task = &mut self.tasks[idx];
-                if let Poll::Ready(_) = task.as_mut().poll(&mut self.context) {
-                    self.tasks.swap_remove(idx);
-                } else {
-                    idx += 1;
+                match task.as_mut().poll(&mut self.context) {
+                    Poll::Ready(value) => {
+                        println!("【 value 】==> {:?}", value);
+                        self.tasks.swap_remove(idx);
+                    }
+                    Poll::Pending => {
+                        idx += 1;
+                    }
                 }
             }
         }
@@ -77,30 +75,23 @@ impl TaskController {
 fn create_waker() -> Waker {
     fn dummy(_: *const ()) {}
 
-    static VTABLE: RawWakerVTable = RawWakerVTable::new(
-        |ptr| unsafe { RawWaker::new(ptr, &VTABLE) },
-        dummy,
-        dummy,
-        dummy,
-    );
+    static VTABLE: RawWakerVTable =
+        RawWakerVTable::new(|ptr| RawWaker::new(ptr, &VTABLE), dummy, dummy, dummy);
 
     unsafe { Waker::from_raw(RawWaker::new(std::ptr::null(), &VTABLE)) }
 }
 
 #[cfg(test)]
 mod test_task_controller {
+
     use super::TaskController;
 
     #[test]
     fn test_task_controller() {
         let mut task_controller = TaskController::new();
-        task_controller.spwn(Box::pin(async {
-            println!("hello");
-        }));
-        task_controller.spwn(Box::pin(async {
-            println!("world");
-        }));
+        task_controller.spawn(Box::pin(async { "Hello".to_string() }));
+        task_controller.spawn(Box::pin(async { "future".to_string() }));
 
-        task_controller.poll_as();
+        task_controller.awaits();
     }
 }

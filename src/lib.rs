@@ -135,17 +135,17 @@ impl BalaBala {
     }
 
     // todo 1：使用 std::future来做 ** 很练技术，有挑战，有助于了解底层：poll, wait, pending
-    pub fn fetch_html_sync(&self, apis_js: js_sys::Array) -> String {
-        let apis = apis_js.to_vec();
-        let arr = js_sys::Array::new();
+    // pub fn fetch_html_sync(&self, apis_js: js_sys::Array) -> String {
+    //     let apis = apis_js.to_vec();
+    //     let arr = js_sys::Array::new();
 
-        for api in apis {
-            let url = format!("{}{}", self.host_name, api.as_string().unwrap());
-            _get_html3(&url);
-        }
+    //     for api in apis {
+    //         let url = format!("{}{}", self.host_name, api.as_string().unwrap());
+    //         _get_html3(&url);
+    //     }
 
-        "".to_string()
-    }
+    //     "".to_string()
+    // }
 }
 
 pub async fn _get_html(url: &str) -> Result<String, Error> {
@@ -167,18 +167,28 @@ pub async fn _get_html2(url: String) -> Result<JsValue, JsValue> {
 }
 
 // 使用Poll来做异步任务
-pub fn _get_html3(url: &str) -> Result<JsValue, JsValue> {
-    // let ta: taskController::TaskControllersks = taskController::TaskController::new();
-    // let task = reqwest::get(url);
-    // tasks.spwn(Box::pin(task.into()));
-    // let body = todo!();
+pub fn _get_html3(url: String) {
+    let mut task_control = taskController::TaskController::new();
+    task_control.spawn(Box::pin(async {
+        "<div>Title</div>".to_string()
+        // reqwest::get(url).await.unwrap().text().await.unwrap()
+    }));
 
-    // body
-
-    todo!("使用Poll来做异步任务")
+    task_control.awaits();
 }
 
 #[wasm_bindgen]
 pub async fn get_html(url: &str) -> String {
     _get_html(url).await.unwrap()
+}
+
+// 编写 _get_html3 测试用例
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_get_html3() {
+        _get_html3("https://docs.rs/v8/latest/v8".to_string());
+    }
 }
