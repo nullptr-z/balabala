@@ -1,10 +1,8 @@
 use std::fmt::Debug;
 use std::future;
 use std::pin::Pin;
-use std::process::Output;
 use std::task::{Context, Poll, RawWaker, RawWakerVTable, Waker};
 
-use async_trait::async_trait;
 use futures::Future;
 
 #[derive(Debug)]
@@ -54,6 +52,7 @@ impl<T> TaskController<T> {
                 let task = &mut self.tasks[idx];
                 match task.as_mut().poll(&mut self.context) {
                     Poll::Ready(value) => {
+                        // 如果已经响应，从列队中移除，下一轮不需要在访问它了
                         self.tasks.swap_remove(idx);
                         result.push(value);
                     }
@@ -89,6 +88,8 @@ fn create_waker() -> Waker {
 
 #[cfg(test)]
 mod test_task_controller {
+    use std::time::Duration;
+
     use super::{MyFuture, TaskController};
 
     #[test]
@@ -100,9 +101,19 @@ mod test_task_controller {
 
     #[test]
     fn test_task_controller() {
+        println!("my block async takas");
+
         let mut task_controller = TaskController::new();
-        task_controller.spawn_join(Box::pin(MyFuture(123)));
-        task_controller.spawn_join(Box::pin(MyFuture(233)));
+        task_controller.spawn_join(Box::pin(MyFuture({
+            // 阻塞4秒在执行
+            std::thread::sleep(Duration::from_secs(4));
+            123
+        })));
+        task_controller.spawn_join(Box::pin(MyFuture({
+            // 阻塞2秒在执行
+            std::thread::sleep(Duration::from_secs(2));
+            456
+        })));
         let result = task_controller.awaits();
         println!("Result: {:?}", result);
 
