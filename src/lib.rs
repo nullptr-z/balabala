@@ -173,7 +173,7 @@ pub fn _get_html3(url: String) {
     let mut task_control = TaskController::new();
     let res = reqwest::get(url);
     task_control.spawn_join(Box::pin(res));
-    let result = task_control.run_task();
+    let result = task_control.awaits();
 
     println!("【 result 】==> {:?}", result);
 }

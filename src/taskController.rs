@@ -1,10 +1,14 @@
 use std::fmt::Debug;
 use std::future;
 use std::pin::Pin;
+use std::process::Output;
 use std::task::{Context, Poll, RawWaker, RawWakerVTable, Waker};
 
+use async_trait::async_trait;
+use futures::Future;
+
 #[derive(Debug)]
-pub struct MyFuture<T: Default>(T);
+pub struct MyFuture<T>(T);
 
 impl<T: Default + Unpin> future::Future for MyFuture<T> {
     type Output = T;
@@ -15,13 +19,11 @@ impl<T: Default + Unpin> future::Future for MyFuture<T> {
     }
 }
 
-// match self.run_task() {
-//     Poll::Ready(t) => Poll::Ready(t),
-//     Poll::Pending => {
-//         cx.waker().wake_by_ref();
-//         Poll::Pending
-//     }
-// }
+impl<T: Future<Output = T>> MyFuture<T> {
+    pub async fn polls(self) -> T::Output {
+        self.0.await
+    }
+}
 
 pub struct TaskController<T> {
     // todo: 改成自己 Vec<Futures>
@@ -40,18 +42,11 @@ impl<T> TaskController<T> {
         }
     }
 
-    // pub fn awaits(mut self) -> Poll<String> {
-    //     let waker = Box::leak(Box::new(create_waker()));
-    //     let mut context = Context::from_waker(waker);
-
-    //     future::Future::poll(Pin::new(&mut self), &mut context)
-    // }
-
     pub fn spawn_join(&mut self, task: Pin<Box<dyn future::Future<Output = T>>>) {
         self.tasks.push(task);
     }
 
-    pub fn run_task(&mut self) -> Vec<T> {
+    pub fn awaits(&mut self) -> Vec<T> {
         let mut result = Vec::new();
         while !self.tasks.is_empty() {
             let mut idx = 0;
@@ -63,6 +58,7 @@ impl<T> TaskController<T> {
                         result.push(value);
                     }
                     Poll::Pending => {
+                        self.context.waker().wake_by_ref();
                         idx += 1;
                     }
                 }
@@ -72,21 +68,6 @@ impl<T> TaskController<T> {
         result
     }
 }
-
-// impl future::Future for TaskController {
-//     type Output = String;
-
-//     fn poll(mut self: Pin<&mut Self>, cx: &mut Context<'_>) -> Poll<Self::Output> {
-//         // todo: 在这里接受返回值,  ready 出去
-//         self.run_task();
-//         if self.tasks.is_empty() {
-//             Poll::Ready("TaskController".to_string())
-//         } else {
-//             cx.waker().wake_by_ref();
-//             Poll::Pending
-//         }
-//     }
-// }
 
 // Context（上下文）是一个封装了异步操作执行所需环境和信息的结构体。
 // 它包含了与异步执行相关的信息，如唤醒器（Waker）和调度器。
@@ -111,18 +92,28 @@ mod test_task_controller {
     use super::{MyFuture, TaskController};
 
     #[test]
+    fn test_polls() {
+        let res = reqwest::get("https://docs.rs/v8/latest/v8".to_string());
+        let my_fu = MyFuture(res);
+        // my_fu.polls();
+    }
+
+    #[test]
     fn test_task_controller() {
         let mut task_controller = TaskController::new();
-
         task_controller.spawn_join(Box::pin(MyFuture(123)));
         task_controller.spawn_join(Box::pin(MyFuture(233)));
-        let result = task_controller.run_task();
+        let result = task_controller.awaits();
         println!("Result: {:?}", result);
 
         let mut task_controller = TaskController::new();
         task_controller.spawn_join(Box::pin(MyFuture("哈哈")));
-
-        let result = task_controller.run_task();
+        let result = task_controller.awaits();
         println!("Result: {:?}", result);
+
+        async {
+            let fu = MyFuture(999).await;
+            println!("【 fu 】==> {:?}", fu);
+        };
     }
 }
