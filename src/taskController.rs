@@ -1,26 +1,27 @@
 use std::fmt::Debug;
 use std::future;
-use std::ops::{Deref, DerefMut};
 use std::pin::Pin;
 use std::task::{Context, Poll, RawWaker, RawWakerVTable, Waker};
 
 #[derive(Debug)]
-pub struct MyFuture<T>(T);
+pub struct MyFuture<T: Default>(T);
 
-impl<T> future::Future for MyFuture<T> {
-    type Output = String;
+impl<T: Default + Unpin> future::Future for MyFuture<T> {
+    type Output = T;
 
-    fn poll(self: Pin<&mut Self>, cx: &mut Context<'_>) -> Poll<Self::Output> {
-        Poll::Ready("MyFuture".to_string())
-        // match self.run_task() {
-        //     Poll::Ready(t) => Poll::Ready(t),
-        //     Poll::Pending => {
-        //         cx.waker().wake_by_ref();
-        //         Poll::Pending
-        //     }
-        // }
+    fn poll(self: Pin<&mut Self>, _: &mut Context<'_>) -> Poll<Self::Output> {
+        let this = unsafe { self.get_unchecked_mut() };
+        Poll::Ready(std::mem::replace(&mut this.0, Default::default()))
     }
 }
+
+// match self.run_task() {
+//     Poll::Ready(t) => Poll::Ready(t),
+//     Poll::Pending => {
+//         cx.waker().wake_by_ref();
+//         Poll::Pending
+//     }
+// }
 
 pub struct TaskController<T> {
     // todo: 改成自己 Vec<Futures>
@@ -50,7 +51,6 @@ impl<T> TaskController<T> {
         self.tasks.push(task);
     }
 
-    // 不适用Future的poll
     pub fn run_task(&mut self) -> Vec<T> {
         let mut result = Vec::new();
         while !self.tasks.is_empty() {
@@ -59,7 +59,6 @@ impl<T> TaskController<T> {
                 let task = &mut self.tasks[idx];
                 match task.as_mut().poll(&mut self.context) {
                     Poll::Ready(value) => {
-                        // todo: 将value返回出去
                         self.tasks.swap_remove(idx);
                         result.push(value);
                     }
@@ -109,26 +108,21 @@ fn create_waker() -> Waker {
 
 #[cfg(test)]
 mod test_task_controller {
-
-    use std::pin::Pin;
-
-    use futures::Future;
-
     use super::{MyFuture, TaskController};
 
     #[test]
     fn test_task_controller() {
         let mut task_controller = TaskController::new();
-        // task_controller.spawn(Box::pin(async { "Hello".to_string() }));
-        // task_controller.spawn(Box::pin(async { "future".to_string() }));
 
-        let futu = MyFuture({
-            println!("【 MyFuture 】==> ");
-            "1234".to_string()
-        });
-        task_controller.spawn_join(Box::pin(futu));
+        task_controller.spawn_join(Box::pin(MyFuture(123)));
+        task_controller.spawn_join(Box::pin(MyFuture(233)));
+        let result = task_controller.run_task();
+        println!("Result: {:?}", result);
+
+        let mut task_controller = TaskController::new();
+        task_controller.spawn_join(Box::pin(MyFuture("哈哈")));
 
         let result = task_controller.run_task();
-        println!("【 result 】==> {:?}", result);
+        println!("Result: {:?}", result);
     }
 }
