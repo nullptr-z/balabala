@@ -1,3 +1,4 @@
+// pub mod aa;
 pub mod gpt;
 pub mod taskController;
 
@@ -7,6 +8,7 @@ use anyhow::Result;
 use futures::{Future, FutureExt};
 use js_sys::Promise;
 use reqwest::Error;
+use taskController::{MyFuture, TaskController};
 use wasm_bindgen::{__rt::IntoJsResult, convert::IntoWasmAbi, prelude::*};
 use wasm_bindgen_futures::future_to_promise;
 
@@ -168,13 +170,12 @@ pub async fn _get_html2(url: String) -> Result<JsValue, JsValue> {
 
 // 使用Poll来做异步任务
 pub fn _get_html3(url: String) {
-    let mut task_control = taskController::TaskController::new();
-    task_control.spawn(Box::pin(async {
-        url
-        // reqwest::get(url).await.unwrap().text().await.unwrap()
-    }));
+    let mut task_control = TaskController::new();
+    let res = reqwest::get(url);
+    task_control.spawn_join(Box::pin(res));
+    let result = task_control.run_task();
 
-    task_control.awaits();
+    println!("【 result 】==> {:?}", result);
 }
 
 #[wasm_bindgen]
