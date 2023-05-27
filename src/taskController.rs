@@ -8,6 +8,10 @@ use futures::Future;
 #[derive(Debug)]
 pub struct MyFuture<T>(T);
 
+/// Future 核心思想就是，不断去 poll 任务状态，Ready时返回 Output指定的类型，也就是异步任务的返回类型，
+/// 1. 判断任务怎么才算准备好了
+/// 2. 定义好任务的返回类型，也就是Output
+
 impl<T: Default + Unpin> future::Future for MyFuture<T> {
     type Output = T;
 
