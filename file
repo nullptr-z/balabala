@@ -1,11 +1,11 @@
 all.html
-script_compiler / struct.CachedData.html
-V8 / index.html
-fast_api / index.html
-icu / index.html
-inspector / index.html
-json / index.html
-script_compiler / index.html
+script_compiler/struct.CachedData.html
+V8/index.html
+fast_api/index.html
+icu/index.html
+inspector/index.html
+json/index.html
+script_compiler/index.html
 struct.AccessorConfiguration.html
 struct.AccessorSignature.html
 struct.Allocator.html
@@ -49,7 +49,7 @@ struct.HeapStatistics.html
 struct.IndexedPropertyHandlerConfiguration.html
 struct.Int8Array.html
 struct.Int16Array.html
-struct.Int32.htmlenum.ConstructorBehavior.html
+struct.Int32.html
 struct.Int32Array.html
 struct.Integer.html
 struct.Isolate.html
@@ -194,9 +194,3 @@ type.PromiseRejectCallback.html
 type.ResolveModuleCallback.html
 type.SyntheticModuleEvaluationSteps.html
 union.ExternalReference.html
-https://docs.rs/v8/latest/v8struct.AccessorConfiguration.html
-https://docs.rs/v8/latest/v8struct.AccessorSignature.html
-https://docs.rs/v8/latest/v8struct.Allocator.html
-https://docs.rs/v8/latest/v8struct.Array.html
-https://docs.rs/v8/latest/v8struct.ArrayBuffer.html
-https://docs.rs/v8/latest/v8struct.ArrayBufferView.html

@@ -3,8 +3,6 @@ pub mod gpt;
 pub mod taskController;
 pub mod utils;
 
-// pub use utils::validate_router;
-
 use anyhow::Result;
 use js_sys::Promise;
 use reqwest::Error;
@@ -16,6 +14,10 @@ use wasm_bindgen_futures::future_to_promise;
 extern "C" {
     #[wasm_bindgen(js_namespace = console)]
     fn log(s: &str);
+}
+
+fn println(s: String) {
+    log(&format!("{}", s));
 }
 
 #[wasm_bindgen]
@@ -42,12 +44,8 @@ pub struct resource {
 impl BalaBala {
     #[wasm_bindgen(constructor)]
     pub fn new(host_name: String) -> Self {
-        // log(&format!("【 new param 】==> {:?}", host_name));
+        // println(&format!("【 new param 】==> {:?}", host_name));
         Self { host_name }
-    }
-
-    pub fn make_dist(&self, resource_name: &str) {
-        todo!()
     }
 
     pub fn get_host_name(&self) -> String {
@@ -56,7 +54,7 @@ impl BalaBala {
 
     pub async fn fetch_html(&self, api: String) -> String {
         let url = format!("{}{}", self.host_name, api);
-        // log(&url);
+        // println(&url);
 
         get_html(&url).await
     }
@@ -72,12 +70,16 @@ impl BalaBala {
         })
     }
 
-    pub async fn fetch_html_all(&self, string_arr: js_sys::Array) -> js_sys::Array {
+    pub async fn fetch_html_all(
+        &self,
+        string_arr: js_sys::Array,
+        callback: js_sys::Function,
+    ) -> js_sys::Array {
         let apis = string_arr.to_vec();
 
-        let futures = apis.into_iter().map(|api| {
+        let futures = apis.iter().map(|api| {
             let url = format!("{}{}", self.host_name, api.as_string().unwrap());
-            log(&url);
+            // println(url.clone());
 
             async move { _get_html(&url).await }
         });
@@ -90,14 +92,17 @@ impl BalaBala {
         // 方法一 end
 
         // 方法二
-        let results = results
-            .into_iter()
-            .map(|result| {
-                let value = result.unwrap();
-                JsValue::from_str(&value)
-            })
-            .collect::<Vec<_>>();
-        js_sys::Array::from_iter(results)
+        let mut result = vec![];
+        for (index, value) in results.into_iter().enumerate() {
+            let value_js = JsValue::from_str(&value.unwrap());
+
+            callback
+                .call2(&JsValue::default(), &apis[index], &value_js)
+                .unwrap();
+            result.push(value_js);
+        }
+
+        js_sys::Array::from_iter(result)
         // 方法二 end
     }
 
@@ -114,7 +119,7 @@ impl BalaBala {
                 // 实际上就是推迟了类型处理
                 match _get_html(&url).await {
                     Ok(value) => {
-                        // log(&format!("---------------------------------------------------------------------{:?}",value));
+                        // println(&format!("---------------------------------------------------------------------{:?}",value));
                         Ok(JsValue::from(value))
                     }
                     Err(err) => Err(JsValue::from_str(&err.to_string())),
@@ -123,7 +128,7 @@ impl BalaBala {
             array.push(&promise);
         }
 
-        log(&format!("array {:?}", array));
+        println(format!("array {:?}", array));
 
         let promise = js_sys::Promise::all(&array);
 
@@ -148,7 +153,7 @@ impl BalaBala {
             array.push(&promises);
         }
 
-        log(&format!("array {:?}", array));
+        println(format!("array {:?}", array));
 
         let promise = js_sys::Promise::all(&array);
 
@@ -156,17 +161,17 @@ impl BalaBala {
     }
 
     // todo 1：使用 std::future来做 ** 很练技术，有挑战，有助于了解底层：poll, wait, pending
-    // pub fn fetch_html_sync(&self, apis_js: js_sys::Array) -> String {
-    //     let apis = apis_js.to_vec();
-    //     let arr = js_sys::Array::new();
+    pub fn fetch_html_sync(&self, apis_js: js_sys::Array) -> String {
+        let apis = apis_js.to_vec();
+        let arr = js_sys::Array::new();
 
-    //     for api in apis {
-    //         let url = format!("{}{}", self.host_name, api.as_string().unwrap());
-    //         _get_html3(&url);
-    //     }
+        for api in apis {
+            let url = format!("{}{}", self.host_name, api.as_string().unwrap());
+            _get_html3(url);
+        }
 
-    //     "".to_string()
-    // }
+        "".to_string()
+    }
 }
 
 pub async fn _get_html(url: &str) -> Result<String, Error> {
