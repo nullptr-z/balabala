@@ -1,15 +1,15 @@
 // pub mod aa;
 pub mod gpt;
 pub mod taskController;
+pub mod utils;
 
-use std::{pin::Pin, task::Poll};
+// pub use utils::validate_router;
 
 use anyhow::Result;
-use futures::{Future, FutureExt};
 use js_sys::Promise;
 use reqwest::Error;
-use taskController::{MyFuture, TaskController};
-use wasm_bindgen::{__rt::IntoJsResult, convert::IntoWasmAbi, prelude::*};
+use taskController::TaskController;
+use wasm_bindgen::prelude::*;
 use wasm_bindgen_futures::future_to_promise;
 
 #[wasm_bindgen]
@@ -23,12 +23,31 @@ pub struct BalaBala {
     host_name: String,
 }
 
+enum DirectoryType {
+    File,
+    Directory,
+}
+
+pub struct Directory {
+    name: String,
+    types: DirectoryType,
+}
+
+pub struct resource {
+    name: String,
+    directory: Vec<Directory>,
+}
+
 #[wasm_bindgen]
 impl BalaBala {
     #[wasm_bindgen(constructor)]
     pub fn new(host_name: String) -> Self {
         // log(&format!("【 new param 】==> {:?}", host_name));
         Self { host_name }
+    }
+
+    pub fn make_dist(&self, resource_name: &str) {
+        todo!()
     }
 
     pub fn get_host_name(&self) -> String {

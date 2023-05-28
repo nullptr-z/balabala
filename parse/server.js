@@ -1,5 +1,6 @@
-import _bala, { BalaBala } from 'balabala'
+import bala, { BalaBala } from 'balabala'
 import { load } from 'cheerio';
+
 
 (async function main() {
   let balabala = new BalaBala("https://docs.rs/v8/latest/v8");
@@ -15,7 +16,7 @@ import { load } from 'cheerio';
   // const body_html = html_context('body').html();  // 或者其他你想提取的元素
 
   const links = get_link_all(body_context);
-  // console.log("【 links 】==>", links);
+  // console.log(links);
 
   const linkss = [
     'struct.AccessorConfiguration.html',
@@ -26,7 +27,9 @@ import { load } from 'cheerio';
     'struct.ArrayBufferView.html',
   ]
 
-  const htmlArray = await balabala.fetch_html_std_future(linkss);
+  // const make = balabala.make_resource("v8");
+
+  const htmlArray = await balabala.fetch_html_all(linkss);
   // console.log("【 htmlArray 】==>", htmlArray);
 
 
@@ -46,7 +49,12 @@ function get_link_all(body_context) {
   const links = []
   body_context('a').each((_i, item) => {
     const url = body_context(item).attr('href');
-    links.push(url)
+
+    // 保留本站链接
+    if (!bala.validate_router(url)) {
+      links.push(url)
+      console.log(url);
+    }
   })
 
   // console.log("【 links 】==>", links);
