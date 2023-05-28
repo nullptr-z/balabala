@@ -26,7 +26,7 @@ import path from 'path'
   //   "icu/index.html"
   // ]
 
-  const htmlArray = await balabala.fetch_html_all_unordered(linkss, (currentUrl, html) => {
+  await balabala.fetch_html_all_unordered(linkss, (currentUrl, html) => {
     const make = make_resource(`resource/v8/${currentUrl}`, html);
   });
   // console.log("【 htmlArray 】==>", htmlArray);

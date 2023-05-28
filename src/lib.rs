@@ -112,7 +112,7 @@ impl BalaBala {
         &self,
         string_arr: js_sys::Array,
         callback: js_sys::Function,
-    ) -> js_sys::Array {
+    ) -> bool {
         let apis = string_arr.to_vec();
 
         let mut futures = FuturesUnordered::new();
@@ -123,8 +123,6 @@ impl BalaBala {
             futures.push(Box::pin(future));
         }
 
-        let mut results = vec![];
-
         while let Some(result) = futures.next().await {
             let (index, value) = result.unwrap();
             println(format!("【 index 】==> {:?}", index));
@@ -133,10 +131,9 @@ impl BalaBala {
             callback
                 .call2(&JsValue::default(), &apis[index], &value_js)
                 .unwrap();
-            results.push(value_js);
         }
 
-        js_sys::Array::from_iter(results)
+        true
     }
 
     // 使用 js_sys::Promise 来做
