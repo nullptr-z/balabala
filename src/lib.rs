@@ -1,9 +1,11 @@
 // pub mod aa;
 pub mod gpt;
 pub mod taskController;
+mod tests;
 pub mod utils;
 
 use anyhow::Result;
+use futures::{stream::FuturesUnordered, StreamExt};
 use js_sys::Promise;
 use reqwest::Error;
 use taskController::TaskController;
@@ -17,7 +19,7 @@ extern "C" {
 }
 
 fn println(s: String) {
-    log(&format!("{}", s));
+    log(&s);
 }
 
 #[wasm_bindgen]
@@ -63,7 +65,7 @@ impl BalaBala {
         let url = format!("{}{}", self.host_name, api);
 
         future_to_promise(async move {
-            match _get_html(&url).await {
+            match _get_html(url).await {
                 Ok(res) => Ok(JsValue::from_str(&res)),
                 Err(err) => Err(JsValue::from_str(&err.to_string())),
             }
@@ -81,7 +83,7 @@ impl BalaBala {
             let url = format!("{}{}", self.host_name, api.as_string().unwrap());
             // println(url.clone());
 
-            async move { _get_html(&url).await }
+            async move { _get_html(url).await }
         });
 
         let results = futures::future::join_all(futures).await;
@@ -106,6 +108,37 @@ impl BalaBala {
         // 方法二 end
     }
 
+    pub async fn fetch_html_all_unordered(
+        &self,
+        string_arr: js_sys::Array,
+        callback: js_sys::Function,
+    ) -> js_sys::Array {
+        let apis = string_arr.to_vec();
+
+        let mut futures = FuturesUnordered::new();
+
+        for (index, api) in apis.iter().enumerate() {
+            let url = format!("{}{}", self.host_name, api.as_string().unwrap());
+            let future = async move { _get_html(url).await.map(move |value| (index, value)) };
+            futures.push(Box::pin(future));
+        }
+
+        let mut results = vec![];
+
+        while let Some(result) = futures.next().await {
+            let (index, value) = result.unwrap();
+            println(format!("【 index 】==> {:?}", index));
+            let value_js = JsValue::from_str(&value);
+
+            callback
+                .call2(&JsValue::default(), &apis[index], &value_js)
+                .unwrap();
+            results.push(value_js);
+        }
+
+        js_sys::Array::from_iter(results)
+    }
+
     // 使用 js_sys::Promise 来做
     pub async fn fetch_html_promise_all(&self, apis_js: js_sys::Array) -> Promise {
         let apis = apis_js.to_vec();
@@ -117,7 +150,7 @@ impl BalaBala {
                 // 如果这里不想match，就的吧String 和 Error转成JsValue
                 // 因为future_to_promise 接受一个 Future<Output = Result<JsValue, JsValue>>；见方法二 fetch_html_promise_all2
                 // 实际上就是推迟了类型处理
-                match _get_html(&url).await {
+                match _get_html(url).await {
                     Ok(value) => {
                         // println(&format!("---------------------------------------------------------------------{:?}",value));
                         Ok(JsValue::from(value))
@@ -174,7 +207,7 @@ impl BalaBala {
     }
 }
 
-pub async fn _get_html(url: &str) -> Result<String, Error> {
+pub async fn _get_html(url: String) -> Result<String, Error> {
     let body = reqwest::get(url).await?.text().await?;
 
     Ok(body)
@@ -204,16 +237,5 @@ pub fn _get_html3(url: String) {
 
 #[wasm_bindgen]
 pub async fn get_html(url: &str) -> String {
-    _get_html(url).await.unwrap()
-}
-
-// 编写 _get_html3 测试用例
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    fn test_get_html3() {
-        _get_html3("https://docs.rs/v8/latest/v8".to_string());
-    }
+    _get_html(url.to_string()).await.unwrap()
 }

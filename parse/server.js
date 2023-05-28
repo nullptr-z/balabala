@@ -17,16 +17,16 @@ import path from 'path'
   // 首页HTML写入到文件
   make_resource("resource/v8/index.html", body_context.html());
   // 获取首页中的所有链接
-  const linkss = get_link_all(body_context);
+  let linkss = get_link_all(body_context);
 
-  // const linkss = [
+  // linkss = [
   //   'struct.AccessorConfiguration.html',
   //   'struct.AccessorSignature.html',
   //   "fast_api/index.html",
   //   "icu/index.html"
   // ]
 
-  const htmlArray = await balabala.fetch_html_all(linkss, (currentUrl, html) => {
+  const htmlArray = await balabala.fetch_html_all_unordered(linkss, (currentUrl, html) => {
     const make = make_resource(`resource/v8/${currentUrl}`, html);
   });
   // console.log("【 htmlArray 】==>", htmlArray);

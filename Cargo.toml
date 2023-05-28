@@ -19,6 +19,10 @@ wasm-bindgen = "0.2"
 wasm-bindgen-futures = "0.4"
 web-sys = { version = "0.3", features = ["console"] }
 
+[dev-dependencies]
+rand = "0.8.5"
+getrandom = { version = "0.2", features = ["js"] }
+
 [lib]
 crate-type = ["cdylib", "rlib"]
 
