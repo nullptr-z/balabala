@@ -129,27 +129,27 @@ impl BalaBala {
         for (index, api) in apis.iter().enumerate() {
             let is_exist = does_file_exist
                 .call1(&JsValue::default(), &api)
-                .unwrap()
+                .expect("^^1")
                 .as_bool()
-                .unwrap();
+                .expect("^^2");
             // println(format!("是否存在？ {:?} {:?}", is_exist, api));
             if is_exist {
                 continue;
             }
-            let url = format!("{}{}", self.host_name, api.as_string().unwrap());
+            let url = format!("{}{}", self.host_name, api.as_string().expect("^^3"));
             // println(format!("{:?} 不存在，放行，{:?}", url, api));
             let future = async move { _get_html(url).await.map(move |value| (index, value)) };
             futures.push(Box::pin(future));
         }
 
         while let Some(result) = futures.next().await {
-            let (index, value) = result.unwrap();
+            let (index, value) = result.expect("^^4");
             // println(format!("【 index 】==> {:?}", index));
             let value_js = JsValue::from_str(&value);
 
             write_resource
                 .call2(&JsValue::default(), &apis[index], &value_js)
-                .unwrap();
+                .expect("^^5");
         }
     }
 

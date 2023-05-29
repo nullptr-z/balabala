@@ -78,7 +78,7 @@ function make_resource(resourceName, content = '') {
   } catch (e) {
     console.error('Error mkdir file:', error.message);
     // 终止程序
-    process.exit(1);
+    // process.exit(1);
   }
 }
 
@@ -87,14 +87,14 @@ async function make_resource_async(resourceName, content = '') {
   const pathParsed = path.parse(filePath);
 
   try {
-    fs.promises.mkdir(pathParsed.dir, { recursive: true }, (err) => { });
+    await fs.promises.mkdir(pathParsed.dir, { recursive: true });
   } catch (err) {
     console.log("mkdir error:", err, pathParsed.dir);
-    // return false;
+    return false;
   }
 
   try {
-    fs.promises.writeFile(filePath, content, 'utf8', (err) => { });
+    await fs.promises.writeFile(filePath, content, 'utf8');
   } catch (err) {
     console.log("mkfile error:", err, filePath);
     return false;
@@ -102,6 +102,7 @@ async function make_resource_async(resourceName, content = '') {
 
   return true;
 }
+
 
 function does_file_exist(fileName) {
   fileName = `resource/v8/${fileName}`
