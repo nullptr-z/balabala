@@ -4,23 +4,18 @@ import fs from 'fs'
 import path from 'path'
 
 (async function main() {
-  let balabala = new BalaBala("https://docs.rs/v8/latest/v8");
+  let balabala = new BalaBala("https://docs.rs/v8/latest/v8/");
 
   const hostName = balabala.get_host_name();
 
   // 从url获取首页内容
-  const page_html = await balabala.fetch_html("/");
-  // 使用cheerio从获取的HTML 字符串加载首页内容
-  let html_context = load(page_html);
+  const page = await balabala.fetch_html("");
   // 过滤首页中的内容：svg,img
-  const body_context = docs_parse(html_context);
+  const body_context = docs_parse(page);
   // 首页HTML写入到文件
   make_resource("resource/v8/index.html", body_context.html());
   // 获取首页中的所有链接
-  let linkss = get_link_all(body_context).filter(link => {
-    // 过滤掉已经存在的文件
-    return !doesFileExist(link)
-  });
+  let linkss = get_link_all(body_context)
 
   // linkss = [
   //   'struct.AccessorConfiguration.html',
@@ -30,14 +25,18 @@ import path from 'path'
   // ]
 
   await balabala.fetch_html_all_unordered(linkss, (currentUrl, html) => {
-    const make = make_resource(`resource/v8/${currentUrl}`, html);
-  });
+    // 过滤页面中的内容：svg,img
+    const body_context = docs_parse(html);
+    const make = make_resource(`resource/v8/${currentUrl}`, body_context.html());
+  }, doesFileExist);
   // console.log("【 htmlArray 】==>", htmlArray);
 
 })()
 
 
-function docs_parse(html_context) {
+function docs_parse(page) {
+  // 使用cheerio从获取的HTML 字符串加载首页内容
+  let html_context = load(page);
   // const pure = html_context('.pure-g').text();
   html_context('svg').remove(); // 删除svg
   html_context('img').remove(); // 删除svg
@@ -57,7 +56,6 @@ function get_link_all(body_context) {
     }
   })
 
-  // console.log("【 links 】==>", links);
   return links
 }
 
@@ -77,13 +75,16 @@ function make_resource(resourceName, content = '') {
   }
 }
 
-
 function doesFileExist(fileName) {
-  // fs.existsSync
   try {
+    // fs.existsSync(fileName)
     fs.accessSync(fileName, fs.constants.R_OK | fs.constants.W_OK);
     return true;
   } catch (err) {
     return false;
   }
 }
+
+
+// 统计文件格式
+// ls -l v8/ | grep ^- | wc -l

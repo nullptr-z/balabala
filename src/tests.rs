@@ -4,7 +4,6 @@ mod tests {
     use std::time::Duration;
 
     use crate::_get_html3;
-    use crate::existsSync;
 
     #[test]
     fn test_get_html3() {
@@ -47,8 +46,23 @@ mod tests {
         }
     }
 
-    #[wasm_bindgen_test]
-    fn test_exists_sync() {
-        existsSync("resource/v8/latest/v8/index.html");
-    }
+    // #[wasm_bindgen_test]
+    // fn test_exists_sync() {
+    //     existsSync("resource/v8/latest/v8/index.html");
+    // }
+}
+
+enum DirectoryType {
+    File,
+    Directory,
+}
+
+pub struct Directory {
+    name: String,
+    types: DirectoryType,
+}
+
+pub struct resource {
+    name: String,
+    directory: Vec<Directory>,
 }

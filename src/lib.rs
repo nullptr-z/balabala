@@ -12,19 +12,27 @@ use taskController::TaskController;
 use wasm_bindgen::prelude::*;
 use wasm_bindgen_futures::future_to_promise;
 
+// todo:注册 fs 模块全局共用
+// lazy_static! {
+//     static ref Global_CALLBACKS: Mutex<JsValue> = Mutex::new(JsValue::UNDEFINED);
+// }
+
+// #[wasm_bindgen]
+// pub fn register_callbacks(callbacks: JsValue) {
+//     let mut global_callbacks = Global_CALLBACKS.lock().unwrap();
+//     *global_callbacks = callbacks;
+// }
+
+// #[wasm_bindgen]
+// pub fn use_callbacks() {
+//     let global_callbacks = Global_CALLBACKS.lock().unwrap();
+//     // 使用 global_callbacks
+// }
+
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(js_namespace = console)]
     fn log(s: &str);
-}
-
-#[wasm_bindgen]
-extern "C" {
-    #[wasm_bindgen(js_namespace = fs)]
-    fn existsSync(path: &str) -> bool;
-
-    #[wasm_bindgen(js_namespace = fs)]
-    fn writeFileSync(path: &str, data: &str);
 }
 
 fn println(s: String) {
@@ -34,21 +42,6 @@ fn println(s: String) {
 #[wasm_bindgen]
 pub struct BalaBala {
     host_name: String,
-}
-
-enum DirectoryType {
-    File,
-    Directory,
-}
-
-pub struct Directory {
-    name: String,
-    types: DirectoryType,
-}
-
-pub struct resource {
-    name: String,
-    directory: Vec<Directory>,
 }
 
 #[wasm_bindgen]
@@ -120,25 +113,31 @@ impl BalaBala {
         &self,
         string_arr: js_sys::Array,
         callback: js_sys::Function,
+        doesFileExist: js_sys::Function,
     ) -> bool {
         let apis = string_arr.to_vec();
-        println(format!("【 apis len 】==> {}", apis.len()));
+        println(format!("【 apis 】==> {:?}", apis.len()));
 
         let mut futures = FuturesUnordered::new();
 
         for (index, api) in apis.iter().enumerate() {
-            if existsSync(api.as_string().unwrap().as_str()) {
-                // 如果文件已存在，就不再请求
-                break;
+            let is_exist = doesFileExist
+                .call1(&JsValue::default(), &api)
+                .unwrap()
+                .as_bool()
+                .unwrap();
+            if is_exist {
+                continue;
             }
             let url = format!("{}{}", self.host_name, api.as_string().unwrap());
+            println(format!("{:?} 不存在，放行，{:?}", url, api));
             let future = async move { _get_html(url).await.map(move |value| (index, value)) };
             futures.push(Box::pin(future));
         }
 
         while let Some(result) = futures.next().await {
             let (index, value) = result.unwrap();
-            println(format!("【 index 】==> {:?}", index));
+            // println(format!("【 index 】==> {:?}", index));
             let value_js = JsValue::from_str(&value);
 
             callback
