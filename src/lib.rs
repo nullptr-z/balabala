@@ -120,7 +120,7 @@ impl BalaBala {
         string_arr: js_sys::Array,
         write_resource: js_sys::Function,
         does_file_exist: js_sys::Function,
-    ) -> bool {
+    ) {
         let apis = string_arr.to_vec();
         println(format!("【 apis 】==> {:?}", apis.len()));
 
@@ -137,7 +137,7 @@ impl BalaBala {
                 continue;
             }
             let url = format!("{}{}", self.host_name, api.as_string().unwrap());
-            println(format!("{:?} 不存在，放行，{:?}", url, api));
+            // println(format!("{:?} 不存在，放行，{:?}", url, api));
             let future = async move { _get_html(url).await.map(move |value| (index, value)) };
             futures.push(Box::pin(future));
         }
@@ -151,8 +151,6 @@ impl BalaBala {
                 .call2(&JsValue::default(), &apis[index], &value_js)
                 .unwrap();
         }
-
-        true
     }
 
     // 使用 js_sys::Promise 来做

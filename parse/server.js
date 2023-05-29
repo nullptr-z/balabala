@@ -24,7 +24,11 @@ import path from 'path'
   //   "icu/index.html"
   // ]
 
-  await balabala.fetch_html_all_unordered(linkss, write_resource, does_file_exist);
+  try {
+    await balabala.fetch_html_all_unordered(linkss, write_resource, does_file_exist);
+  } catch (err) {
+    console.log("【 err 】==>", err);
+  }
   // console.log("【 htmlArray 】==>", htmlArray);
 
 })()
@@ -83,14 +87,14 @@ async function make_resource_async(resourceName, content = '') {
   const pathParsed = path.parse(filePath);
 
   try {
-    await fs.mkdir(pathParsed.dir, { recursive: true }, (err) => { });
+    fs.promises.mkdir(pathParsed.dir, { recursive: true }, (err) => { });
   } catch (err) {
-    // console.log("mkdir error:", err, pathParsed.dir);
+    console.log("mkdir error:", err, pathParsed.dir);
     // return false;
   }
 
   try {
-    await fs.writeFile(filePath, content, 'utf8', (err) => { });
+    fs.promises.writeFile(filePath, content, 'utf8', (err) => { });
   } catch (err) {
     console.log("mkfile error:", err, filePath);
     return false;
