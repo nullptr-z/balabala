@@ -33,6 +33,12 @@ use wasm_bindgen_futures::future_to_promise;
 extern "C" {
     #[wasm_bindgen(js_namespace = console)]
     fn log(s: &str);
+
+}
+
+#[wasm_bindgen(js_namespace = global)]
+extern "C" {
+    async fn make_resource_async(resourceName: &str, content: &str);
 }
 
 fn println(s: String) {
@@ -77,7 +83,7 @@ impl BalaBala {
     pub async fn fetch_html_all(
         &self,
         string_arr: js_sys::Array,
-        callback: js_sys::Function,
+        write_resource: js_sys::Function,
     ) -> js_sys::Array {
         let apis = string_arr.to_vec();
         let futures = apis.iter().map(|api| {
@@ -99,7 +105,7 @@ impl BalaBala {
         for (index, value) in results.into_iter().enumerate() {
             let value_js = JsValue::from_str(&value.unwrap());
 
-            callback
+            write_resource
                 .call2(&JsValue::default(), &apis[index], &value_js)
                 .unwrap();
             result.push(value_js);
@@ -112,8 +118,8 @@ impl BalaBala {
     pub async fn fetch_html_all_unordered(
         &self,
         string_arr: js_sys::Array,
-        callback: js_sys::Function,
-        doesFileExist: js_sys::Function,
+        write_resource: js_sys::Function,
+        does_file_exist: js_sys::Function,
     ) -> bool {
         let apis = string_arr.to_vec();
         println(format!("【 apis 】==> {:?}", apis.len()));
@@ -121,11 +127,12 @@ impl BalaBala {
         let mut futures = FuturesUnordered::new();
 
         for (index, api) in apis.iter().enumerate() {
-            let is_exist = doesFileExist
+            let is_exist = does_file_exist
                 .call1(&JsValue::default(), &api)
                 .unwrap()
                 .as_bool()
                 .unwrap();
+            // println(format!("是否存在？ {:?} {:?}", is_exist, api));
             if is_exist {
                 continue;
             }
@@ -140,7 +147,7 @@ impl BalaBala {
             // println(format!("【 index 】==> {:?}", index));
             let value_js = JsValue::from_str(&value);
 
-            callback
+            write_resource
                 .call2(&JsValue::default(), &apis[index], &value_js)
                 .unwrap();
         }

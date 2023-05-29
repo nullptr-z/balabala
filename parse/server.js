@@ -24,11 +24,7 @@ import path from 'path'
   //   "icu/index.html"
   // ]
 
-  await balabala.fetch_html_all_unordered(linkss, (currentUrl, html) => {
-    // 过滤页面中的内容：svg,img
-    const body_context = docs_parse(html);
-    const make = make_resource(`resource/v8/${currentUrl}`, body_context.html());
-  }, doesFileExist);
+  await balabala.fetch_html_all_unordered(linkss, write_resource, does_file_exist);
   // console.log("【 htmlArray 】==>", htmlArray);
 
 })()
@@ -59,6 +55,13 @@ function get_link_all(body_context) {
   return links
 }
 
+async function write_resource(currentUrl, html) {
+  // 过滤页面中的内容：svg,img
+  const body_context = docs_parse(html);
+  // todo: 考虑在这里去掉`#*`的锚点
+  make_resource_async(currentUrl, body_context.html());
+}
+
 function make_resource(resourceName, content = '') {
   try {
     const pathParsed = path.parse(resourceName)
@@ -69,16 +72,38 @@ function make_resource(resourceName, content = '') {
 
     // console.log('文件创建成功：', filePath);
   } catch (e) {
-    console.error('Error:', error.message);
+    console.error('Error mkdir file:', error.message);
     // 终止程序
     process.exit(1);
   }
 }
 
-function doesFileExist(fileName) {
+async function make_resource_async(resourceName, content = '') {
+  const filePath = `resource/v8/${resourceName}`;
+  const pathParsed = path.parse(filePath);
+
   try {
-    // fs.existsSync(fileName)
-    fs.accessSync(fileName, fs.constants.R_OK | fs.constants.W_OK);
+    await fs.mkdir(pathParsed.dir, { recursive: true }, (err) => { });
+  } catch (err) {
+    // console.log("mkdir error:", err, pathParsed.dir);
+    // return false;
+  }
+
+  try {
+    await fs.writeFile(filePath, content, 'utf8', (err) => { });
+  } catch (err) {
+    console.log("mkfile error:", err, filePath);
+    return false;
+  }
+
+  return true;
+}
+
+function does_file_exist(fileName) {
+  fileName = `resource/v8/${fileName}`
+  return fs.existsSync(fileName)
+  try {
+    // fs.accessSync(`fileName`, fs.constants.R_OK | fs.constants.W_OK);
     return true;
   } catch (err) {
     return false;
@@ -87,4 +112,6 @@ function doesFileExist(fileName) {
 
 
 // 统计文件格式
-// ls -l v8/ | grep ^- | wc -l
+// ls -l resource/v8/ | grep ^- | wc -l
+
+global.make_resource_async = make_resource_async
