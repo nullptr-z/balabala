@@ -18,6 +18,15 @@ extern "C" {
     fn log(s: &str);
 }
 
+#[wasm_bindgen]
+extern "C" {
+    #[wasm_bindgen(js_namespace = fs)]
+    fn existsSync(path: &str) -> bool;
+
+    #[wasm_bindgen(js_namespace = fs)]
+    fn writeFileSync(path: &str, data: &str);
+}
+
 fn println(s: String) {
     log(&s);
 }
@@ -78,7 +87,6 @@ impl BalaBala {
         callback: js_sys::Function,
     ) -> js_sys::Array {
         let apis = string_arr.to_vec();
-
         let futures = apis.iter().map(|api| {
             let url = format!("{}{}", self.host_name, api.as_string().unwrap());
             // println(url.clone());
@@ -114,10 +122,15 @@ impl BalaBala {
         callback: js_sys::Function,
     ) -> bool {
         let apis = string_arr.to_vec();
+        println(format!("【 apis len 】==> {}", apis.len()));
 
         let mut futures = FuturesUnordered::new();
 
         for (index, api) in apis.iter().enumerate() {
+            if existsSync(api.as_string().unwrap().as_str()) {
+                // 如果文件已存在，就不再请求
+                break;
+            }
             let url = format!("{}{}", self.host_name, api.as_string().unwrap());
             let future = async move { _get_html(url).await.map(move |value| (index, value)) };
             futures.push(Box::pin(future));

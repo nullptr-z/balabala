@@ -4,8 +4,7 @@ mod tests {
     use std::time::Duration;
 
     use crate::_get_html3;
-
-    use super::*;
+    use crate::existsSync;
 
     #[test]
     fn test_get_html3() {
@@ -16,7 +15,8 @@ mod tests {
     use futures::stream::StreamExt;
     use rand::Rng;
     use tokio::time::sleep;
-    use tokio::time::Instant; // For `.next()`.
+    use tokio::time::Instant;
+    use wasm_bindgen_test::wasm_bindgen_test; // For `.next()`.
 
     async fn random_pause() {
         let mut rng = rand::thread_rng();
@@ -45,5 +45,10 @@ mod tests {
         while let Some(result) = futures.next().await {
             println!("Got result: {}", result);
         }
+    }
+
+    #[wasm_bindgen_test]
+    fn test_exists_sync() {
+        existsSync("resource/v8/latest/v8/index.html");
     }
 }

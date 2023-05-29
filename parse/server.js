@@ -17,7 +17,10 @@ import path from 'path'
   // 首页HTML写入到文件
   make_resource("resource/v8/index.html", body_context.html());
   // 获取首页中的所有链接
-  let linkss = get_link_all(body_context);
+  let linkss = get_link_all(body_context).filter(link => {
+    // 过滤掉已经存在的文件
+    return !doesFileExist(link)
+  });
 
   // linkss = [
   //   'struct.AccessorConfiguration.html',
@@ -71,5 +74,16 @@ function make_resource(resourceName, content = '') {
     console.error('Error:', error.message);
     // 终止程序
     process.exit(1);
+  }
+}
+
+
+function doesFileExist(fileName) {
+  // fs.existsSync
+  try {
+    fs.accessSync(fileName, fs.constants.R_OK | fs.constants.W_OK);
+    return true;
+  } catch (err) {
+    return false;
   }
 }
