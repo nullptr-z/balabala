@@ -161,13 +161,13 @@ impl BalaBala {
         }
 
         while let Some(result) = futures.next().await {
-            let (index, value) = result.expect("^^4");
-            // println!(format!("【 index 】==> {:?}", index));
-            let value_js = JsValue::from_str(&value);
+            if let Some((index, value)) = result {
+                let value_js = JsValue::from_str(&value);
 
-            write_resource
-                .call2(&JsValue::default(), &apis[index], &value_js)
-                .expect("^^5");
+                write_resource
+                    .call2(&JsValue::default(), &apis[index], &value_js)
+                    .expect("^^5");
+            }
         }
     }
 
