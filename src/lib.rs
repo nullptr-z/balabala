@@ -29,20 +29,22 @@ use wasm_bindgen_futures::future_to_promise;
 //     // 使用 global_callbacks
 // }
 
+#[macro_export]
+macro_rules! println {
+    ($($arg:tt)*) => ({
+        $crate::log(&format!($($arg)*));
+    });
+}
+
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(js_namespace = console)]
     fn log(s: &str);
-
 }
 
 #[wasm_bindgen(js_namespace = global)]
 extern "C" {
     async fn make_resource_async(resourceName: &str, content: &str);
-}
-
-fn println(s: String) {
-    log(&s);
 }
 
 #[wasm_bindgen]
@@ -54,7 +56,7 @@ pub struct BalaBala {
 impl BalaBala {
     #[wasm_bindgen(constructor)]
     pub fn new(host_name: String) -> Self {
-        // println(&format!("【 new param 】==> {:?}", host_name));
+        // println!(&format!("【 new param 】==> {:?}", host_name));
         Self { host_name }
     }
 
@@ -64,7 +66,7 @@ impl BalaBala {
 
     pub async fn fetch_html(&self, api: String) -> String {
         let url = format!("{}{}", self.host_name, api);
-        // println(&url);
+        println!("apis ==> {:?}", url);
 
         get_html(&url).await
     }
@@ -88,7 +90,7 @@ impl BalaBala {
         let apis = string_arr.to_vec();
         let futures = apis.iter().map(|api| {
             let url = format!("{}{}", self.host_name, api.as_string().unwrap());
-            // println(url.clone());
+            // println!(url.clone());
 
             async move { _get_html(url).await }
         });
@@ -122,7 +124,7 @@ impl BalaBala {
         does_file_exist: js_sys::Function,
     ) {
         let apis = string_arr.to_vec();
-        println(format!("【 apis 】==> {:?}", apis.len()));
+        println!("【 apis 】==> {:?}", apis.len());
 
         let mut futures = FuturesUnordered::new();
 
@@ -132,19 +134,19 @@ impl BalaBala {
                 .expect("^^1")
                 .as_bool()
                 .expect("^^2");
-            // println(format!("是否存在？ {:?} {:?}", is_exist, api));
+            // println!(format!("是否存在？ {:?} {:?}", is_exist, api));
             if is_exist {
                 continue;
             }
             let url = format!("{}{}", self.host_name, api.as_string().expect("^^3"));
-            // println(format!("{:?} 不存在，放行，{:?}", url, api));
+            // println!(format!("{:?} 不存在，放行，{:?}", url, api));
             let future = async move { _get_html(url).await.map(move |value| (index, value)) };
             futures.push(Box::pin(future));
         }
 
         while let Some(result) = futures.next().await {
             let (index, value) = result.expect("^^4");
-            // println(format!("【 index 】==> {:?}", index));
+            // println!(format!("【 index 】==> {:?}", index));
             let value_js = JsValue::from_str(&value);
 
             write_resource
@@ -166,7 +168,7 @@ impl BalaBala {
                 // 实际上就是推迟了类型处理
                 match _get_html(url).await {
                     Ok(value) => {
-                        // println(&format!("---------------------------------------------------------------------{:?}",value));
+                        // println!(&format!("---------------------------------------------------------------------{:?}",value));
                         Ok(JsValue::from(value))
                     }
                     Err(err) => Err(JsValue::from_str(&err.to_string())),
@@ -175,7 +177,7 @@ impl BalaBala {
             array.push(&promise);
         }
 
-        println(format!("array {:?}", array));
+        println!("array {:?}", array);
 
         let promise = js_sys::Promise::all(&array);
 
@@ -200,7 +202,7 @@ impl BalaBala {
             array.push(&promises);
         }
 
-        println(format!("array {:?}", array));
+        println!("array {:?}", array);
 
         let promise = js_sys::Promise::all(&array);
 
