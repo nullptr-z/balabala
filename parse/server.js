@@ -30,7 +30,6 @@ import path from 'path'
     console.log("【 err 】==>", err);
   }
   // console.log("【 htmlArray 】==>", htmlArray);
-
 })()
 
 
@@ -103,7 +102,6 @@ async function make_resource_async(resourceName, content = '') {
   return true;
 }
 
-
 function does_file_exist(fileName) {
   fileName = `resource/v8/${fileName}`
   return fs.existsSync(fileName)
@@ -114,9 +112,10 @@ function does_file_exist(fileName) {
     return false;
   }
 }
+global.make_resource_async = make_resource_async
 
 
 // 统计文件格式
 // ls -l resource/v8/ | grep ^- | wc -l
-
-global.make_resource_async = make_resource_async
+// 输出结构树
+// find . -type d -name "ignore" -prune -o -print | tree -F --fromfile

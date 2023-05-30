@@ -42,8 +42,9 @@ extern "C" {
     fn log(s: &str);
 }
 
-#[wasm_bindgen(js_namespace = global)]
+#[wasm_bindgen]
 extern "C" {
+    #[wasm_bindgen(js_namespace = ["global"])]
     async fn make_resource_async(resourceName: &str, content: &str);
 }
 
@@ -66,9 +67,13 @@ impl BalaBala {
 
     pub async fn fetch_html(&self, api: String) -> String {
         let url = format!("{}{}", self.host_name, api);
-        println!("apis ==> {:?}", url);
 
-        get_html(&url).await
+        _get_html(url)
+            .await
+            .map_err(|error| {
+                println!("error fetch_html _get_html: {:?}", error);
+            })
+            .unwrap()
     }
 
     pub async fn fetch_html_promise(&self, api: String) -> js_sys::Promise {
@@ -140,7 +145,18 @@ impl BalaBala {
             }
             let url = format!("{}{}", self.host_name, api.as_string().expect("^^3"));
             // println!(format!("{:?} 不存在，放行，{:?}", url, api));
-            let future = async move { _get_html(url).await.map(move |value| (index, value)) };
+            let future = async move {
+                match _get_html(url.clone()).await {
+                    Ok(value) => Some((index, value)),
+                    Err(err) => {
+                        println!("Error fetch_html_all_unordered _get_html:");
+                        println!("index:[{}],url: {:?}", index, url);
+                        println!("{:?}", err);
+
+                        None
+                    }
+                }
+            };
             futures.push(Box::pin(future));
         }
 
@@ -224,7 +240,7 @@ impl BalaBala {
 }
 
 pub async fn _get_html(url: String) -> Result<String, Error> {
-    let body = reqwest::get(url).await?.text().await?;
+    let body: String = reqwest::get(url).await?.text().await?;
 
     Ok(body)
 }
