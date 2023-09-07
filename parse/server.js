@@ -112,10 +112,5 @@ function does_file_exist(fileName) {
     return false;
   }
 }
+
 global.make_resource_async = make_resource_async
-
-
-// 统计文件格式
-// ls -l resource/v8/ | grep ^- | wc -l
-// 输出结构树
-// find . -type d -name "ignore" -prune -o -print | tree -F --fromfile

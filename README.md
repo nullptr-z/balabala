@@ -2,6 +2,8 @@
 
 这是一个使用 Rust（编译为 WASM）和 Node.js 的网络爬虫项目。
 
+主要研究 wasm for rust 在 Nodejs runtime 中使用
+
 ## taskController.rs
 
 自定义 Future, 使用底层的 Poll、Ready、Waker 等接口，实现了一个简单的异步运行时。
