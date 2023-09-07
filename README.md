@@ -2,7 +2,15 @@
 
 这是一个使用 Rust（编译为 WASM）和 Node.js 的网络爬虫项目。
 
+## taskController.rs
+
+自定义 Future, 使用底层的 Poll、Ready、Waker 等接口，实现了一个简单的异步运行时。
+
+实现了 spawn_join 方法，添加了一个异步任务(Future)到任务队列。
+实现了 awaits 方法，等待任务队所有任务完成。
+
 ## 项目结构
+
 ```sh
 my_project/
 ├── Cargo.toml
@@ -28,7 +36,6 @@ wasm/ 目录是 Rust 代码被编译为 WASM 之后的输出位置。wasm_pack_s
 
 parse/ 目录包含 Node.js 代码和资源。它由 package.json 文件管理，该文件描述了 Node.js 项目的配置和依赖。server.js 可以是主要 Node.js 脚本，它加载和运行 WASM 模块，然后处理 HTML。
 
-
 ## 安装
 
 ### Rust 和 wasm-pack
@@ -52,7 +59,6 @@ cargo install cargo-watch
 
 你还需要安装 Node.js 和 npm。安装指南可在 [Node.js 官方网站](https://nodejs.org/) 找到。
 
-
 ### 项目依赖
 
 你可以使用以下命令安装项目的依赖：
@@ -66,9 +72,10 @@ cd parse
 npm install
 ```
 
-
 ### 自动编译
+
 代码变更时自动编译 Rust 项目，你可以安装 cargo-watch：
+
 ```sh
 
 # 使用 cargo-watch 运行 Rust 项目：
@@ -76,7 +83,9 @@ cargo watch -s "wasm-pack build --target nodejs --out-dir wasm/pkg"
 ```
 
 ### 手动编译
+
 你需要编译 Rust 代码为 WASM：
+
 ```sh
 wasm-pack build --target nodejs --out-dir wasm/pkg
 ```
