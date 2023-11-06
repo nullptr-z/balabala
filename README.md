@@ -4,7 +4,7 @@
 
 主要研究 wasm for rust 在 Nodejs runtime 中使用
 
-爬去rust create文档，通过chatgpt 来翻译文档（暂未实现）
+爬取rust create文档，通过chatgpt 来翻译文档（暂未实现）
 
 ## taskController.rs
 
