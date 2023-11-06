@@ -1,8 +1,10 @@
 # Balabala
 
-这是一个使用 Rust（编译为 WASM）和 Node.js 的网络爬虫项目。
+这是一个使用 Rust（编译为 WASM）和 Node.js 的网络爬爬。
 
 主要研究 wasm for rust 在 Nodejs runtime 中使用
+
+爬去rust create文档，通过chatgpt 来翻译文档（暂未实现）
 
 ## taskController.rs
 
